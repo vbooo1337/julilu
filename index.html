@@ -45,11 +45,23 @@
       overflow: hidden;
       border-radius: 50%;
       border: 3px solid #ddd;
+      position: relative;
     }
     .image-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: transparent;
+      z-index: 2;
     }
     .name {
       font-size: 26px;
@@ -90,10 +102,11 @@
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
   <div class="card">
     <div class="image-container">
-      <img src="https://i.postimg.cc/mkskNJhq/IMG-1134.jpg" alt="Юлия Зуева">
+      <img src="https://i.postimg.cc/mkskNJhq/IMG-1134.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
+      <div class="overlay"></div>
     </div>
     <h1 class="name">Юлия Зуева</h1>
     <p class="profession">визажист-стилист</p>
