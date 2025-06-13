@@ -1,126 +1,119 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Юлия Зуева - Визажист-стилист</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome для иконок -->
-    <script src="https://kit.fontawesome.com/3c69a84e0b.js" crossorigin="anonymous"></script>
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 10px;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .card {
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 350px;
-            text-align: center;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-        .image-container {
-            width: 130px;
-            height: 130px;
-            margin: 0 auto 15px;
-            overflow: hidden;
-            border-radius: 50%;
-            border: 2px solid #ddd;
-        }
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .name {
-            font-size: 20px;
-            font-weight: 500;
-            color: #333;
-            margin: 0 0 5px;
-        }
-        .profession {
-            font-size: 14px;
-            color: #666;
-            margin: 0 0 10px;
-        }
-        .phone a {
-            font-size: 16px;
-            color: #333;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .phone a:hover {
-            text-decoration: underline;
-        }
-        .links-text {
-            margin-top: 15px;
-            text-align: center;
-        }
-        .links-text a {
-            display: inline-block;
-            margin: 6px 0;
-            color: #333;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .links-text a i {
-            margin-right: 8px;
-            color: #007bff;
-        }
-        .links-text a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 360px) {
-            .card {
-                padding: 10px;
-            }
-            .image-container {
-                width: 120px;
-                height: 120px;
-            }
-            .name {
-                font-size: 18px;
-            }
-            .profession {
-                font-size: 12px;
-            }
-            .phone a {
-                font-size: 14px;
-            }
-            .links-text a {
-                font-size: 14px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Юлия Зуева - Визажист-стилист</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'AA Stetica Light';
+      src: url('https://example.com/AASteticaLight.woff2') format('woff2'),
+           url('https://example.com/AASteticaLight.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    body {
+      font-family: 'AA Stetica Light', 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000; /* черный фон вне карточки */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .image-container {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      border-radius: 50%;
+      border: 3px solid #ddd;
+    }
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .name {
+      font-size: 26px;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0 5px;
+    }
+    .profession {
+      font-size: 18px;
+      color: #666;
+      margin: 0 0 15px;
+    }
+    .phone a {
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .phone a:hover {
+      text-decoration: underline;
+    }
+    .links-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .links-icons a {
+      width: 30px;
+      height: 30px;
+      fill: #007bff;
+      transition: fill 0.3s;
+    }
+    .links-icons a:hover svg {
+      fill: #0056b3;
+    }
+    .links-icons svg {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <div class="image-container">
-            <img src="https://i.postimg.cc/bJ4dG4H4/IMG-1134.jpg" alt="Юлия Зуева">
-        </div>
-        <h1 class="name">Юлия Зуева</h1>
-        <p class="profession">визажист-стилист</p>
-        <p class="phone"><a href="tel:+79877109526">+7 (987) 710 95-26</a></p>
-        <div class="links-text">
-            <a href="https://t.me/Ju_li_lu26" target="_blank"><i class="fab fa-telegram-plane"></i>Telegram</a><br>
-            <a href="https://www.instagram.com/ju_li_lu?igsh=MWlpc3V1a2JpYmcxMQ==" target="_blank"><i class="fab fa-instagram"></i>Instagram</a><br>
-            <a href="https://vk.com/ju_lu26" target="_blank"><i class="fab fa-vk"></i>VK</a>
-        </div>
+  <div class="card">
+    <div class="image-container">
+      <img src="https://i.postimg.cc/mkskNJhq/IMG-1134.jpg" alt="Юлия Зуева">
     </div>
+    <div class="card-content">
+      <h1 class="name">Юлия Зуева</h1>
+      <p class="profession">визажист-стилист</p>
+      <p class="phone"><a href="tel:+79877109526">+7 (987) 710 95-26</a></p>
+      <div class="links-icons">
+        <a href="https://t.me/Ju_li_lu26" target="_blank" title="Telegram">
+          <svg viewBox="0 0 24 24"><path d="M9.97 16.93c-.36 0-.3-.13-.42-.46l-1.05-3.47 8.47-5.33"/></svg>
+        </a>
+        <a href="https://www.instagram.com/ju_li_lu?igsh=MWlpc3V1a2JpYmcxMQ==" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zM12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5c2.76 0 5-2.24 5-5s-2.24-5-5-5zm0 2c1.66 0 3 1.34 3 3s-1.34 3-3 3a3 3 0 010-6zm4.5-3a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/></svg>
+        </a>
+        <a href="https://vk.com/ju_lu26" target="_blank" title="VK">
+          <svg viewBox="0 0 24 24"><path d="M3 5v14h18V5H3zm9.49 10.45H11v-1.96c-.33.01-.66.04-.99.07v1.89H8.97v-3.64h1.04v1.3c.32-.03.65-.05.98-.06v-1.24h1.5v3.64zm3.97 0h-1.38l-.57-1.32h-.06v1.32h-1.04v-3.64h1.54c.62 0 1.01.25 1.01.89 0 .44-.21.71-.56.83l.67 1.46z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
