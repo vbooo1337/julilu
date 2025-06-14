@@ -1,210 +1,166 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Юлия Зуева - Визажист-стилист</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
-  <style>
-    @font-face {
-      font-family: 'AA Stetica Light';
-      src: url('https://example.com/AASteticaLight.woff2') format('woff2'),
-           url('https://example.com/AASteticaLight.woff') format('woff');
-      font-weight: 300;
-      font-style: normal;
-      font-display: swap;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Юлия Зуева - Визажист-стилист</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+<style>
+  @font-face {
+    font-family: 'AA Stetica Light';
+    src: url('https://example.com/AASteticaLight.woff2') format('woff2'),
+         url('https://example.com/AASteticaLight.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  body {
+    font-family: 'AA Stetica Light', 'Roboto', sans-serif;
+    margin: 0; padding: 0;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    padding: 40px 20px 80px; /* оставим место снизу под кнопку */
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+  }
+  .image-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    user-select: none;
+    pointer-events: none;
+  }
+  .overlay {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    background: transparent;
+    z-index: 2;
+  }
+  .name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0 5px;
+  }
+  .profession {
+    font-size: 18px;
+    color: #666;
+    margin: 0 0 15px;
+  }
+  .phone a {
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .phone a:hover {
+    text-decoration: underline;
+  }
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .social-icons a img {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    transition: transform 0.2s;
+  }
+  .social-icons a:hover img {
+    transform: scale(1.1);
+  }
 
-    body {
-      font-family: 'AA Stetica Light', 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
+  /* Кнопка прайса */
+  .price-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 2px solid black;
+    border-radius: 9999px / 50%; /* полукруги слева и справа, прямые сверху/снизу */
+    padding: 8px 20px;
+    font-family: 'AA Stetica Light', 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    transition: background-color 0.3s, color 0.3s;
+    width: fit-content;
+    min-width: 110px;
+  }
+  .price-button:hover {
+    background-color: #f0f0f0;
+  }
 
-    .card {
-      background-color: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      width: 100%;
-      max-width: 400px;
-      height: 100vh;
-      padding: 40px 20px;
-      box-sizing: border-box;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-    }
+  .price-button svg {
+    width: 20px;
+    height: 20px;
+    fill: black;
+    transition: transform 0.3s;
+  }
+  .price-button.open svg {
+    transform: rotate(180deg);
+  }
 
-    .image-container {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto 20px;
-      overflow: hidden;
-      border-radius: 50%;
-      border: 3px solid #ddd;
-      position: relative;
-      aspect-ratio: 1 / 1;
-    }
-
-    .image-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    .overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: transparent;
-      z-index: 2;
-    }
-
-    .name {
-      font-size: 26px;
-      font-weight: bold;
-      color: #333;
-      margin: 10px 0 5px;
-    }
-
-    .profession {
-      font-size: 18px;
-      color: #666;
-      margin: 0 0 15px;
-    }
-
-    .phone a {
-      font-size: 18px;
-      color: #333;
-      text-decoration: none;
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .phone a:hover {
-      text-decoration: underline;
-    }
-
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .social-icons a img {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      transition: transform 0.2s;
-    }
-
-    .social-icons a:hover img {
-      transform: scale(1.1);
-    }
-
-    /* Кнопки */
-    .toggle-button {
-      background: #fff;
-      border: 2px solid #000;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      z-index: 10;
-    }
-
-    .toggle-button svg {
-      width: 14px;
-      height: 14px;
-      stroke: #000;
-      transition: transform 0.3s ease;
-    }
-
-    /* Поворот стрелки вниз */
-    .toggle-button.active svg {
-      transform: rotate(180deg);
-    }
-
-    /* Внешняя кнопка фиксирована внизу по центру */
-    #toggleBtnMain {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    /* Внутренняя кнопка - внутри прайс-листа */
-    #toggleBtnInside {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: none; /* скрыта по умолчанию */
-    }
-
-    /* Прайс-лист */
-    .price-panel {
-      position: fixed;
-      bottom: -100%;
-      left: 0;
-      right: 0;
-      background: #fff;
-      max-width: 400px;
-      margin: 0 auto;
-      border-top: 2px solid #ccc;
-      padding: 24px 20px 60px;
-      transition: bottom 0.5s ease;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-      border-radius: 20px 20px 0 0;
-      z-index: 5;
-      font-family: 'AA Stetica Light', 'Roboto', sans-serif;
-      box-sizing: border-box;
-    }
-
-    .price-panel.active {
-      bottom: 0;
-    }
-
-    .price-list span {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #333;
-    }
-
-    @media (max-width: 480px) {
-      .image-container {
-        width: 150px;
-        height: 150px;
-      }
-      .name {
-        font-size: 22px;
-      }
-      .price-list span {
-        font-size: 16px;
-      }
-    }
-  </style>
+  /* Прайс лист */
+  .price-list {
+    margin-top: 25px;
+    font-family: 'AA Stetica Light', 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: #333;
+    text-align: left;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    padding: 0 10px;
+  }
+  .price-list.open {
+    max-height: 1000px; /* достаточно большое чтобы вместить весь текст */
+    padding: 15px 10px 0;
+  }
+  .price-list p {
+    margin: 6px 0;
+  }
+</style>
 </head>
 <body oncontextmenu="return false;">
   <div class="card">
@@ -226,55 +182,37 @@
         <img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg" alt="VK" />
       </a>
     </div>
-  </div>
 
-  <div class="price-panel" id="pricePanel">
-    <div class="price-list">
-      <span>💄 Макияж — 1500₽</span>
-      <span>💇‍♀️ Прическа — 2000₽</span>
-      <span>✨ Полный образ — 3000₽</span>
-      <span>👰 Макияж / прическа для невесты — 2000₽</span>
-      <span>👑 Полный образ (невеста) — 3500₽</span>
-      <span>🎨 Пробный образ — 1500₽</span>
-      <span>🚗 Выезд по городу — 1000₽</span>
-      <span>⏰ Выезд до 8:00 — +500₽ / час</span>
-    </div>
-    <div class="toggle-button" id="toggleBtnInside" title="Скрыть прайс">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="18 15 12 9 6 15" />
+    <button class="price-button" id="togglePriceBtn" aria-expanded="false" aria-controls="priceList" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M7 14l5-5 5 5H7z"/>
       </svg>
+      <span>прайс</span>
+    </button>
+
+    <div class="price-list" id="priceList" aria-hidden="true">
+      <p>Макияж - 1500₽</p>
+      <p>Прическа - 2000₽</p>
+      <p>Полный образ - 3000₽</p>
+      <p>Макияж / прическа для невесты - 2000₽</p>
+      <p>Полный образ - 3500₽</p>
+      <p>Пробный образ - 1500₽</p>
+      <p>Выезд по городу - 1000₽</p>
+      <p>Выезд до 8:00 - 500₽ (за каждый час)</p>
     </div>
   </div>
 
-  <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15" />
-    </svg>
-  </div>
+<script>
+  const btn = document.getElementById('togglePriceBtn');
+  const priceList = document.getElementById('priceList');
 
-  <script>
-    const pricePanel = document.getElementById('pricePanel');
-    const toggleBtnMain = document.getElementById('toggleBtnMain');
-    const toggleBtnInside = document.getElementById('toggleBtnInside');
-
-    function togglePrice() {
-      const isActive = pricePanel.classList.toggle('active');
-
-      if (isActive) {
-        toggleBtnMain.style.display = 'none';
-        toggleBtnInside.style.display = 'flex';
-        toggleBtnInside.classList.add('active');
-        toggleBtnMain.classList.remove('active');
-      } else {
-        toggleBtnMain.style.display = 'flex';
-        toggleBtnInside.style.display = 'none';
-        toggleBtnMain.classList.remove('active'); // стрелка вверх
-        toggleBtnInside.classList.remove('active');
-      }
-    }
-
-    toggleBtnMain.addEventListener('click', togglePrice);
-    toggleBtnInside.addEventListener('click', togglePrice);
-  </script>
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    priceList.setAttribute('aria-hidden', String(expanded));
+    btn.classList.toggle('open');
+    priceList.classList.toggle('open');
+  });
+</script>
 </body>
 </html>
