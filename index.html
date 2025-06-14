@@ -131,8 +131,6 @@
       cursor: pointer;
       transition: all 0.4s ease;
       z-index: 10;
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .toggle-button svg {
@@ -154,6 +152,15 @@
       left: 50%;
       transform: translateX(-50%);
       transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Когда прайс открыт — скрываем внешнюю кнопку */
+    #toggleBtnMain.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(20px);
     }
 
     /* Внутренняя кнопка - внутри прайс-листа */
@@ -161,7 +168,7 @@
       position: absolute;
       bottom: 20px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(20px);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease, transform 0.4s ease;
@@ -184,12 +191,12 @@
       margin: 0 auto;
       border-top: 2px solid #ccc;
       padding: 24px 20px 60px;
-      box-sizing: border-box;
+      transition: bottom 0.5s ease;
       box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
       border-radius: 20px 20px 0 0;
       z-index: 5;
       font-family: 'AA Stetica Light', 'Roboto', sans-serif;
-      transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      box-sizing: border-box;
     }
 
     .price-panel.active {
@@ -250,4 +257,38 @@
       <span>🚗 Выезд по городу — 1000₽</span>
       <span>⏰ Выезд до 8:00 — +500₽ / час</span>
     </div>
-    <div class="toggle-button" id="toggleBtnInside" title="
+    <div class="toggle-button" id="toggleBtnInside" title="Скрыть прайс">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#000">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </div>
+
+  <div class="toggle-button" id="toggleBtnMain" title="Показать прайс">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#000">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+
+  <script>
+    const toggleBtnMain = document.getElementById('toggleBtnMain');
+    const toggleBtnInside = document.getElementById('toggleBtnInside');
+    const pricePanel = document.getElementById('pricePanel');
+
+    function togglePrice() {
+      const isActive = pricePanel.classList.toggle('active');
+
+      if (isActive) {
+        toggleBtnMain.classList.add('hidden');
+        toggleBtnInside.classList.add('active');
+      } else {
+        toggleBtnMain.classList.remove('hidden');
+        toggleBtnInside.classList.remove('active');
+      }
+    }
+
+    toggleBtnMain.addEventListener('click', togglePrice);
+    toggleBtnInside.addEventListener('click', togglePrice);
+  </script>
+</body>
+</html>
