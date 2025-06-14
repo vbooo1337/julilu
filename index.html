@@ -29,7 +29,7 @@
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       overflow: hidden;
-      padding-bottom: 80px; /* место под кнопку */
+      padding-bottom: 60px; /* место под кнопку */
     }
 
     .photo {
@@ -56,22 +56,18 @@
     }
 
     .toggle-button {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
+      position: absolute;
+      bottom: 20px;
       z-index: 10;
-      background: #fff;         /* Белый фон */
-      color: #000;              /* Чёрная стрелка */
-      border: 2px solid #000;   /* Чёрная обводка */
+      background: #3e2c1c;
+      color: white;
+      border: none;
       border-radius: 50%;
-      width: 52px;
-      height: 52px;
-      font-size: 26px;
+      width: 48px;
+      height: 48px;
+      font-size: 24px;
       cursor: pointer;
-      transition: background 0.3s ease;
-      text-align: center;
-      line-height: 48px;
+      transition: transform 0.3s ease;
     }
 
     .price-panel {
