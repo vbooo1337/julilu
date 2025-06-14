@@ -124,32 +124,36 @@
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.9);
+      background: #fff;
       border: 2px solid #000;
       border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      padding: 4px;
+      width: 32px;
+      height: 32px;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      z-index: 10;
+      transition: all 0.4s ease;
     }
 
     .toggle-button svg {
-      width: 18px;
-      height: 18px;
+      width: 14px;
+      height: 14px;
+      stroke: #000;
       transition: transform 0.3s ease;
-    }
-
-    .toggle-button.move-up {
-      bottom: 300px;
     }
 
     .toggle-button.rotate-down svg {
       transform: rotate(180deg);
+    }
+
+    /* Когда кнопка находится внутри прайса */
+    .toggle-button.in-panel {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     /* Прайс-лист */
@@ -162,7 +166,7 @@
       max-width: 400px;
       margin: 0 auto;
       border-top: 2px solid #ccc;
-      padding: 24px;
+      padding: 24px 20px 60px;
       transition: bottom 0.5s ease;
       box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
       border-radius: 20px 20px 0 0;
@@ -217,12 +221,6 @@
     </div>
   </div>
 
-  <div class="toggle-button" id="toggleBtn" aria-label="Открыть прайс">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15" />
-    </svg>
-  </div>
-
   <div class="price-panel" id="pricePanel">
     <div class="price-list">
       <span>💄 Макияж — 1500₽</span>
@@ -234,17 +232,31 @@
       <span>🚗 Выезд по городу — 1000₽</span>
       <span>⏰ Выезд до 8:00 — +500₽ / час</span>
     </div>
+    <div class="toggle-button in-panel" id="toggleBtnInside" title="Скрыть прайс">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
   </div>
 
   <script>
-    const toggleBtn = document.getElementById('toggleBtn');
     const pricePanel = document.getElementById('pricePanel');
+    const toggleBtnMain = document.getElementById('toggleBtnMain');
+    const toggleBtnInside = document.getElementById('toggleBtnInside');
 
-    toggleBtn.addEventListener('click', () => {
-      const isActive = pricePanel.classList.toggle('active');
-      toggleBtn.classList.toggle('move-up', isActive);
-      toggleBtn.classList.toggle('rotate-down', isActive);
-    });
+    function togglePrice() {
+      const active = pricePanel.classList.toggle('active');
+      toggleBtnMain.style.display = active ? 'none' : 'flex';
+    }
+
+    toggleBtnMain.addEventListener('click', togglePrice);
+    toggleBtnInside.addEventListener('click', togglePrice);
   </script>
 </body>
 </html>
