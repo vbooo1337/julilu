@@ -2,142 +2,154 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Юлия Зуева - Визажист-стилист</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Юлия Зуева — Визажист-стилист</title>
   <style>
-    @font-face {
-      font-family: 'AA Stetica Light';
-      src: url('https://example.com/AASteticaLight.woff2') format('woff2'),
-           url('https://example.com/AASteticaLight.woff') format('woff');
-      font-weight: 300;
-      font-style: normal;
-      font-display: swap;
+    * {
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'AA Stetica Light', 'Roboto', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #000;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f5f0;
+      color: #3e2c1c;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-    }
-
-    .card {
-      background-color: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      width: 100%;
-      max-width: 400px;
-      height: 100vh;
-      padding: 40px 20px;
-      box-sizing: border-box;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .image-container {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto 20px;
-      overflow: hidden;
-      border-radius: 50%;
-      border: 3px solid #ddd;
+      overflow-x: hidden;
       position: relative;
-      flex-shrink: 0;
-      flex-grow: 0;
-      aspect-ratio: 1 / 1;
     }
 
-    .image-container img {
+    .container {
+      background: #fff8f0;
+      max-width: 420px;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      aspect-ratio: 1 / 1;
-      user-select: none;
-      pointer-events: none;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding-bottom: 80px; /* место под кнопку */
     }
 
-    .overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: transparent;
-      z-index: 2;
+    .photo {
+      height: 420px;
+      background: url('https://i.postimg.cc/mkskNJhq/IMG-1134.jpg') center center/cover no-repeat;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .info {
+      padding: 24px;
+      text-align: center;
     }
 
     .name {
       font-size: 26px;
-      font-weight: bold;
-      color: #333;
-      margin: 10px 0 5px;
+      font-weight: 700;
+      margin: 0 0 8px;
     }
 
     .profession {
-      font-size: 18px;
-      color: #666;
-      margin: 0 0 15px;
+      font-size: 16px;
+      font-style: italic;
+      margin: 0 0 20px;
     }
 
-    .phone a {
-      font-size: 18px;
-      color: #333;
-      text-decoration: none;
-      margin-bottom: 20px;
+    .toggle-button {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: #fff;         /* Белый фон */
+      color: #000;              /* Чёрная стрелка */
+      border: 2px solid #000;   /* Чёрная обводка */
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      font-size: 26px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-align: center;
+      line-height: 48px;
+    }
+
+    .price-panel {
+      position: fixed;
+      bottom: -100%;
+      left: 0;
+      right: 0;
+      background: #fff8f0;
+      max-width: 420px;
+      margin: 0 auto;
+      border-top: 2px solid #ccc;
+      padding: 24px;
+      transition: bottom 0.5s ease;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .price-panel.active {
+      bottom: 0;
+    }
+
+    .price-list span {
       display: block;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
 
-    .phone a:hover {
-      text-decoration: underline;
-    }
+    @media (max-width: 480px) {
+      .photo {
+        height: 300px;
+      }
 
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
+      .name {
+        font-size: 22px;
+      }
 
-    .social-icons a img {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      transition: transform 0.2s;
-    }
-
-    .social-icons a:hover img {
-      transform: scale(1.1);
+      .price-list span {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
-<body oncontextmenu="return false;">
-  <div class="card">
-    <div class="image-container">
-      <img src="https://i.postimg.cc/mkskNJhq/IMG-1134.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
-      <div class="overlay"></div>
-    </div>
-    <h1 class="name">Юлия Зуева</h1>
-    <p class="profession">визажист-стилист</p>
-    <p class="phone"><a href="tel:+79877109526">+7 (987) 710 95-26</a></p>
-    <div class="social-icons">
-      <a href="https://t.me/Ju_li_lu26" target="_blank" title="Telegram">
-        <img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram">
-      </a>
-      <a href="https://www.instagram.com/ju_li_lu?igsh=MWlpc3V1a2JpYmcxMQ==" target="_blank" title="Instagram">
-        <img src="https://i.postimg.cc/JnnCwQvn/IMG-1136.jpg" alt="Instagram">
-      </a>
-      <a href="https://vk.com/ju_lu26" target="_blank" title="VK">
-        <img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg" alt="VK">
-      </a>
+<body>
+
+  <div class="container">
+    <div class="photo"></div>
+    <div class="info">
+      <h1 class="name">Юлия Зуева</h1>
+      <p class="profession">Визажист-стилист</p>
     </div>
   </div>
+
+  <!-- Кнопка -->
+  <button class="toggle-button" id="toggleBtn">↑</button>
+
+  <!-- Прайс-лист -->
+  <div class="price-panel" id="pricePanel">
+    <div class="price-list">
+      <span>💄 Макияж — 1500₽</span>
+      <span>💇‍♀️ Прическа — 2000₽</span>
+      <span>✨ Полный образ — 3000₽</span>
+      <span>👰 Макияж / прическа для невесты — 2000₽</span>
+      <span>👑 Полный образ (невеста) — 3500₽</span>
+      <span>🎨 Пробный образ — 1500₽</span>
+      <span>🚗 Выезд по городу — 1000₽</span>
+      <span>⏰ Выезд до 8:00 — +500₽ / час</span>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const pricePanel = document.getElementById('pricePanel');
+
+    toggleBtn.addEventListener('click', () => {
+      const isActive = pricePanel.classList.toggle('active');
+      toggleBtn.innerText = isActive ? '↓' : '↑';
+    });
+  </script>
+
 </body>
 </html>
