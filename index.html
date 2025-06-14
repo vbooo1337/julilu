@@ -118,7 +118,6 @@
       transform: scale(1.1);
     }
 
-    /* Кнопки */
     .toggle-button {
       background: #fff;
       border: 2px solid #000;
@@ -140,12 +139,10 @@
       transition: transform 0.3s ease;
     }
 
-    /* Поворот стрелки вниз */
     .toggle-button.active svg {
       transform: rotate(180deg);
     }
 
-    /* Внешняя кнопка фиксирована внизу по центру */
     #toggleBtnMain {
       position: fixed;
       bottom: 30px;
@@ -153,16 +150,14 @@
       transform: translateX(-50%);
     }
 
-    /* Внутренняя кнопка - внутри прайс-листа */
     #toggleBtnInside {
       position: absolute;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      display: none; /* скрыта по умолчанию */
+      display: none;
     }
 
-    /* Прайс-лист */
     .price-panel {
       position: fixed;
       bottom: -100%;
@@ -209,7 +204,7 @@
 <body oncontextmenu="return false;">
   <div class="card">
     <div class="image-container">
-      <img src='https://i.postimg.cc/8cj0XDw5/IMG-1152.webp" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
+      <img src="https://i.postimg.cc/GtZpDt2h/IMG-1134-optimized.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" loading="lazy" />
       <div class="overlay"></div>
     </div>
     <h1 class="name">Юлия Зуева</h1>
@@ -268,7 +263,7 @@
       } else {
         toggleBtnMain.style.display = 'flex';
         toggleBtnInside.style.display = 'none';
-        toggleBtnMain.classList.remove('active'); // стрелка вверх
+        toggleBtnMain.classList.remove('active');
         toggleBtnInside.classList.remove('active');
       }
     }
