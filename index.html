@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Юлия Зуева - Визажист-стилист</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
   <style>
     @font-face {
       font-family: 'AA Stetica Light';
@@ -118,12 +118,8 @@
       transform: scale(1.1);
     }
 
-    /* Кнопка */
+    /* Кнопки */
     .toggle-button {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
       background: #fff;
       border: 2px solid #000;
       border-radius: 50%;
@@ -133,8 +129,8 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      z-index: 10;
       transition: all 0.4s ease;
+      z-index: 10;
     }
 
     .toggle-button svg {
@@ -149,12 +145,21 @@
       transform: rotate(180deg);
     }
 
-    /* Когда кнопка находится внутри прайса */
-    .toggle-button.in-panel {
+    /* Внешняя кнопка фиксирована внизу по центру */
+    #toggleBtnMain {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Внутренняя кнопка - внутри прайс-листа */
+    #toggleBtnInside {
       position: absolute;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
+      display: none; /* скрыта по умолчанию */
     }
 
     /* Прайс-лист */
@@ -173,6 +178,7 @@
       border-radius: 20px 20px 0 0;
       z-index: 5;
       font-family: 'AA Stetica Light', 'Roboto', sans-serif;
+      box-sizing: border-box;
     }
 
     .price-panel.active {
@@ -211,13 +217,13 @@
     <p class="phone"><a href="tel:+79877109526">+7 (987) 710 95-26</a></p>
     <div class="social-icons">
       <a href="https://t.me/Ju_li_lu26" target="_blank" title="Telegram">
-        <img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram">
+        <img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram" />
       </a>
       <a href="https://www.instagram.com/ju_li_lu?igsh=MWlpc3V1a2JpYmcxMQ==" target="_blank" title="Instagram">
-        <img src="https://i.postimg.cc/JnnCwQvn/IMG-1136.jpg" alt="Instagram">
+        <img src="https://i.postimg.cc/JnnCwQvn/IMG-1136.jpg" alt="Instagram" />
       </a>
       <a href="https://vk.com/ju_lu26" target="_blank" title="VK">
-        <img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg" alt="VK">
+        <img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg" alt="VK" />
       </a>
     </div>
   </div>
@@ -233,7 +239,7 @@
       <span>🚗 Выезд по городу — 1000₽</span>
       <span>⏰ Выезд до 8:00 — +500₽ / час</span>
     </div>
-    <div class="toggle-button in-panel active" id="toggleBtnInside" title="Скрыть прайс">
+    <div class="toggle-button" id="toggleBtnInside" title="Скрыть прайс">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="18 15 12 9 6 15" />
       </svg>
@@ -252,7 +258,23 @@
     const toggleBtnInside = document.getElementById('toggleBtnInside');
 
     function togglePrice() {
-      const active = pricePanel.classList.toggle('active');
-      toggleBtnMain.style.display = active ? 'none' : 'flex';
+      const isActive = pricePanel.classList.toggle('active');
 
-      // Кнопка внутри панели меня
+      if (isActive) {
+        toggleBtnMain.style.display = 'none';
+        toggleBtnInside.style.display = 'flex';
+        toggleBtnInside.classList.add('active');
+        toggleBtnMain.classList.remove('active');
+      } else {
+        toggleBtnMain.style.display = 'flex';
+        toggleBtnInside.style.display = 'none';
+        toggleBtnMain.classList.remove('active'); // стрелка вверх
+        toggleBtnInside.classList.remove('active');
+      }
+    }
+
+    toggleBtnMain.addEventListener('click', togglePrice);
+    toggleBtnInside.addEventListener('click', togglePrice);
+  </script>
+</body>
+</html>
