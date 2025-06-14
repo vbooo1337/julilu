@@ -131,6 +131,8 @@
       cursor: pointer;
       transition: all 0.4s ease;
       z-index: 10;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .toggle-button svg {
@@ -151,6 +153,7 @@
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     /* Внутренняя кнопка - внутри прайс-листа */
@@ -159,7 +162,15 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      display: none; /* скрыта по умолчанию */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    #toggleBtnInside.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
     }
 
     /* Прайс-лист */
@@ -173,12 +184,12 @@
       margin: 0 auto;
       border-top: 2px solid #ccc;
       padding: 24px 20px 60px;
-      transition: bottom 0.5s ease;
+      box-sizing: border-box;
       box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
       border-radius: 20px 20px 0 0;
       z-index: 5;
       font-family: 'AA Stetica Light', 'Roboto', sans-serif;
-      box-sizing: border-box;
+      transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .price-panel.active {
@@ -239,42 +250,4 @@
       <span>🚗 Выезд по городу — 1000₽</span>
       <span>⏰ Выезд до 8:00 — +500₽ / час</span>
     </div>
-    <div class="toggle-button" id="toggleBtnInside" title="Скрыть прайс">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="18 15 12 9 6 15" />
-      </svg>
-    </div>
-  </div>
-
-  <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15" />
-    </svg>
-  </div>
-
-  <script>
-    const pricePanel = document.getElementById('pricePanel');
-    const toggleBtnMain = document.getElementById('toggleBtnMain');
-    const toggleBtnInside = document.getElementById('toggleBtnInside');
-
-    function togglePrice() {
-      const isActive = pricePanel.classList.toggle('active');
-
-      if (isActive) {
-        toggleBtnMain.style.display = 'none';
-        toggleBtnInside.style.display = 'flex';
-        toggleBtnInside.classList.add('active');
-        toggleBtnMain.classList.remove('active');
-      } else {
-        toggleBtnMain.style.display = 'flex';
-        toggleBtnInside.style.display = 'none';
-        toggleBtnMain.classList.remove('active'); // стрелка вверх
-        toggleBtnInside.classList.remove('active');
-      }
-    }
-
-    toggleBtnMain.addEventListener('click', togglePrice);
-    toggleBtnInside.addEventListener('click', togglePrice);
-  </script>
-</body>
-</html>
+    <div class="toggle-button" id="toggleBtnInside" title="
