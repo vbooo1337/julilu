@@ -151,16 +151,6 @@
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Когда прайс открыт — скрываем внешнюю кнопку */
-    #toggleBtnMain.hidden {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(-50%) translateY(20px);
     }
 
     /* Внутренняя кнопка - внутри прайс-листа */
@@ -168,16 +158,8 @@
       position: absolute;
       bottom: 20px;
       left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    #toggleBtnInside.active {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
+      transform: translateX(-50%);
+      display: none; /* скрыта по умолчанию */
     }
 
     /* Прайс-лист */
@@ -258,31 +240,35 @@
       <span>⏰ Выезд до 8:00 — +500₽ / час</span>
     </div>
     <div class="toggle-button" id="toggleBtnInside" title="Скрыть прайс">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#000">
-        <polyline points="6 9 12 15 18 9"></polyline>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15" />
       </svg>
     </div>
   </div>
 
-  <div class="toggle-button" id="toggleBtnMain" title="Показать прайс">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#000">
-      <polyline points="6 9 12 15 18 9"></polyline>
+  <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15" />
     </svg>
   </div>
 
   <script>
+    const pricePanel = document.getElementById('pricePanel');
     const toggleBtnMain = document.getElementById('toggleBtnMain');
     const toggleBtnInside = document.getElementById('toggleBtnInside');
-    const pricePanel = document.getElementById('pricePanel');
 
     function togglePrice() {
       const isActive = pricePanel.classList.toggle('active');
 
       if (isActive) {
-        toggleBtnMain.classList.add('hidden');
+        toggleBtnMain.style.display = 'none';
+        toggleBtnInside.style.display = 'flex';
         toggleBtnInside.classList.add('active');
+        toggleBtnMain.classList.remove('active');
       } else {
-        toggleBtnMain.classList.remove('hidden');
+        toggleBtnMain.style.display = 'flex';
+        toggleBtnInside.style.display = 'none';
+        toggleBtnMain.classList.remove('active'); // стрелка вверх
         toggleBtnInside.classList.remove('active');
       }
     }
