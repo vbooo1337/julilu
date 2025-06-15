@@ -181,7 +181,6 @@
       }
     }
 
-    /* Кнопка Поделиться */
     .share-wrapper {
       position: absolute;
       top: 20px;
@@ -288,13 +287,15 @@
     </div>
     <div class="toggle-button" id="toggleBtnInside" title="Скрыть прайс">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="18 15 12 9 6 15" />
+        <!-- стрелка вниз -->
+        <polyline points="6 9 12 15 18 9" />
       </svg>
     </div>
   </div>
 
   <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- стрелка вверх -->
       <polyline points="18 15 12 9 6 15" />
     </svg>
   </div>
@@ -331,14 +332,12 @@
 
     function shareViaTelegram() {
       const text = encodeURIComponent("Смотри визитку визажиста Юлии: " + window.location.href);
-      // Формат для Telegram: https://t.me/share/url?url=URL&text=TEXT
       const url = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`;
       window.open(url, '_blank', 'noopener');
     }
 
     function shareViaWhatsApp() {
       const text = encodeURIComponent("Смотри визитку визажиста Юлии: " + window.location.href);
-      // Формат для WhatsApp: https://wa.me/?text=TEXT
       const url = `https://wa.me/?text=${text}`;
       window.open(url, '_blank', 'noopener');
     }
