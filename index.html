@@ -14,30 +14,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100%;
       position: relative;
       overflow-x: hidden;
-    }
-
-    .vpn-message {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fff;
-      color: #000;
-      padding: 10px 20px;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      border-radius: 0 0 12px 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      opacity: 0;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-
-    .vpn-message.show {
-      opacity: 1;
     }
 
     .card {
@@ -60,11 +39,13 @@
     .image-container {
       width: 180px;
       height: 180px;
+      aspect-ratio: 1 / 1;
       margin: 0 auto 20px;
       overflow: hidden;
       border-radius: 50%;
       border: 3px solid #ddd;
       position: relative;
+      flex-shrink: 0;
     }
 
     .image-container img {
@@ -256,12 +237,40 @@
     .share-menu a:hover img {
       transform: scale(1.1);
     }
+
+    /* Блокировка альбомной ориентации */
+    .landscape-warning {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      background: #000;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      text-align: center;
+      padding: 40px 20px;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    @media screen and (orientation: landscape) and (max-width: 900px) {
+      body > *:not(.landscape-warning) {
+        display: none !important;
+      }
+
+      .landscape-warning {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
-  
-  <div class="vpn-message" id="vpnMessage">Грузит лучше с VPN</div>
-
   <div class="card">
     <div class="image-container">
       <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
@@ -322,6 +331,11 @@
     </svg>
   </div>
 
+  <!-- Сообщение при альбомной ориентации -->
+  <div class="landscape-warning">
+    Пожалуйста, переверните телефон в портретный режим 📱
+  </div>
+
   <script>
     const pricePanel = document.getElementById('pricePanel');
     const toggleBtnMain = document.getElementById('toggleBtnMain');
@@ -363,17 +377,6 @@
       const url = `https://wa.me/?text=${text}`;
       window.open(url, '_blank', 'noopener');
     }
-
-    // 👇 VPN-сообщение
-    window.addEventListener('DOMContentLoaded', () => {
-      const msg = document.getElementById('vpnMessage');
-      setTimeout(() => {
-        msg.classList.add('show');
-        setTimeout(() => {
-          msg.classList.remove('show');
-        }, 2000);
-      }, 500);
-    });
   </script>
 </body>
 </html>
