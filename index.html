@@ -19,6 +19,27 @@
       overflow-x: hidden;
     }
 
+    .vpn-message {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      color: #000;
+      padding: 10px 20px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .vpn-message.show {
+      opacity: 1;
+    }
+
     .card {
       background-color: white;
       border-radius: 20px;
@@ -238,6 +259,9 @@
   </style>
 </head>
 <body oncontextmenu="return false;">
+  
+  <div class="vpn-message" id="vpnMessage">Грузит лучше с VPN😉</div>
+
   <div class="card">
     <div class="image-container">
       <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
@@ -287,15 +311,13 @@
     </div>
     <div class="toggle-button" id="toggleBtnInside" title="Скрыть прайс">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <!-- стрелка вниз -->
-        <polyline points="6 9 12 15 18 9" />
+        <polyline points="18 15 12 9 6 15" />
       </svg>
     </div>
   </div>
 
   <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <!-- стрелка вверх -->
       <polyline points="18 15 12 9 6 15" />
     </svg>
   </div>
@@ -341,6 +363,17 @@
       const url = `https://wa.me/?text=${text}`;
       window.open(url, '_blank', 'noopener');
     }
+
+    // 👇 VPN-сообщение
+    window.addEventListener('DOMContentLoaded', () => {
+      const msg = document.getElementById('vpnMessage');
+      setTimeout(() => {
+        msg.classList.add('show');
+        setTimeout(() => {
+          msg.classList.remove('show');
+        }, 2000);
+      }, 500);
+    });
   </script>
 </body>
 </html>
