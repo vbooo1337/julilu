@@ -283,4 +283,58 @@
 
   <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </div>
+
+  <div id="vpnMessage">Грузит лучше с VPN</div>
+  <div id="orientationMessage">Пожалуйста, переверните устройство в портретную ориентацию для корректного отображения сайта.</div>
+
+  <script>
+    // Показать плашку с сообщением про VPN 2 секунды при загрузке
+    window.addEventListener('load', () => {
+      const vpnMessage = document.getElementById('vpnMessage');
+      vpnMessage.style.opacity = '1';
+      setTimeout(() => {
+        vpnMessage.style.opacity = '0';
+      }, 2000);
+    });
+
+    // Открыть/закрыть прайс
+    const toggleBtnMain = document.getElementById('toggleBtnMain');
+    const toggleBtnInside = document.getElementById('toggleBtnInside');
+    const pricePanel = document.getElementById('pricePanel');
+
+    toggleBtnMain.addEventListener('click', () => {
+      pricePanel.classList.add('active');
+      toggleBtnMain.style.display = 'none';
+      toggleBtnInside.style.display = 'flex';
+    });
+
+    toggleBtnInside.addEventListener('click', () => {
+      pricePanel.classList.remove('active');
+      toggleBtnInside.style.display = 'none';
+      toggleBtnMain.style.display = 'flex';
+    });
+
+    // Блокировка альбомной ориентации с сообщением
+    function checkOrientation() {
+      const orientationMessage = document.getElementById('orientationMessage');
+      if (window.matchMedia("(orientation: landscape)").matches) {
+        orientationMessage.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      } else {
+        orientationMessage.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    checkOrientation();
+
+    // Отключаем контекстное меню (уже есть oncontextmenu в body)
+  </script>
+
+</body>
+</html>
