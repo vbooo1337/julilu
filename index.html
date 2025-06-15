@@ -265,10 +265,30 @@
       transition: opacity 0.5s ease;
       z-index: 20;
     }
+
+    /* Надпись перевернуть экран (по центру) */
+    #rotateNotice {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.9);
+      color: #000;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      font-size: 22px;
+      text-align: center;
+      padding: 20px 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+      user-select: none;
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
-  <div class="card">
+  <div class="card" id="mainCard">
     <div class="image-container">
       <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
     </div>
@@ -330,26 +350,27 @@
 
   <div id="vpnNotice">Грузит лучше с VPN😉</div>
 
+  <div id="rotateNotice">Поверните устройство<br>в портретный режим</div>
+
   <script>
     const pricePanel = document.getElementById('pricePanel');
     const toggleBtnMain = document.getElementById('toggleBtnMain');
     const toggleBtnInside = document.getElementById('toggleBtnInside');
     const shareMenu = document.getElementById('shareMenu');
     const vpnNotice = document.getElementById('vpnNotice');
+    const rotateNotice = document.getElementById('rotateNotice');
 
     function togglePrice() {
       const isActive = pricePanel.classList.toggle('active');
       toggleBtnMain.style.display = isActive ? 'none' : 'flex';
       toggleBtnInside.style.display = isActive ? 'flex' : 'none';
 
-      // Показываем/скрываем стрелку вниз (активный класс для поворота svg)
       if (isActive) {
         toggleBtnInside.classList.add('active');
       } else {
         toggleBtnInside.classList.remove('active');
       }
 
-      // Показать сообщение про VPN на 2 секунды
       showVpnNotice();
     }
 
@@ -372,25 +393,44 @@
     }
 
     function shareViaTelegram() {
-      const text = encodeURIComponent("Смотри визитку визажиста Юлии: " + window.location.href);
-      const url = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`;
-      window.open(url, '_blank', 'noopener');
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent('Визитка Юлии Зуевой — визажист-стилист');
+      window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
     }
 
     function shareViaWhatsApp() {
-      const text = encodeURIComponent("Смотри визитку визажиста Юлии: " + window.location.href);
-      const url = `https://wa.me/?text=${text}`;
-      window.open(url, '_blank', 'noopener');
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent('Визитка Юлии Зуевой — визажист-стилист');
+      window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
     }
 
     function showVpnNotice() {
       vpnNotice.style.opacity = '1';
-      vpnNotice.style.pointerEvents = 'auto';
       setTimeout(() => {
         vpnNotice.style.opacity = '0';
-        vpnNotice.style.pointerEvents = 'none';
       }, 2000);
     }
+
+    // Проверка ориентации и показ предупреждения при альбомной ориентации
+    function checkOrientation() {
+      if(window.matchMedia("(orientation: landscape)").matches) {
+        rotateNotice.style.display = "block";
+        document.getElementById('mainCard').style.filter = "blur(3px)";
+        pricePanel.style.pointerEvents = "none";
+        toggleBtnMain.style.pointerEvents = "none";
+        toggleBtnInside.style.pointerEvents = "none";
+      } else {
+        rotateNotice.style.display = "none";
+        document.getElementById('mainCard').style.filter = "none";
+        pricePanel.style.pointerEvents = "auto";
+        toggleBtnMain.style.pointerEvents = "auto";
+        toggleBtnInside.style.pointerEvents = "auto";
+      }
+    }
+
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    window.addEventListener('load', checkOrientation);
   </script>
 </body>
 </html>
