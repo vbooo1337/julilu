@@ -268,9 +268,34 @@
         display: flex;
       }
     }
+
+    /* Новая надпись сверху */
+    .vpn-message {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      opacity: 1;
+      transition: opacity 1s ease;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+    }
+    .vpn-message.hide {
+      opacity: 0;
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
+  <div id="vpnMessage" class="vpn-message">Грузит лучше с VPN</div>
+
   <div class="card">
     <div class="image-container">
       <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
@@ -377,33 +402,17 @@
       const url = `https://wa.me/?text=${text}`;
       window.open(url, '_blank', 'noopener');
     }
+
+    // Надпись «Грузит лучше с VPN»
+    window.addEventListener('load', () => {
+      const vpnMsg = document.getElementById('vpnMessage');
+      setTimeout(() => {
+        vpnMsg.classList.add('hide');
+      }, 2000); // через 2 секунды начнется плавное исчезновение
+      setTimeout(() => {
+        vpnMsg.remove();
+      }, 3000); // через 3 секунды удаляем элемент
+    });
   </script>
-  window.addEventListener('load', () => {
-  const msg = document.createElement('div');
-  msg.textContent = 'Грузит лучше с VPN';
-  msg.style.position = 'fixed';
-  msg.style.top = '10px';
-  msg.style.left = '50%';
-  msg.style.transform = 'translateX(-50%)';
-  msg.style.background = 'rgba(0,0,0,0.8)';
-  msg.style.color = '#fff';
-  msg.style.padding = '10px 20px';
-  msg.style.borderRadius = '10px';
-  msg.style.fontFamily = "'Roboto', sans-serif";
-  msg.style.fontSize = '16px';
-  msg.style.zIndex = '10000';
-  msg.style.opacity = '1';
-  msg.style.transition = 'opacity 1s ease';
-
-  document.body.appendChild(msg);
-
-  setTimeout(() => {
-    msg.style.opacity = '0';
-  }, 2000);
-
-  setTimeout(() => {
-    msg.remove();
-  }, 3000);
-});
 </body>
 </html>
