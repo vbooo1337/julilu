@@ -413,14 +413,23 @@
 
     // Счётчик кликов по фото и вывод сообщения после 10 нажатий
     let clickCount = 0;
+    let timeoutId = null;
+
     imageContainer.addEventListener('click', () => {
       clickCount++;
       if (clickCount === 10) {
+        clearTimeout(timeoutId);
         banner.textContent = 'Хватит жмякать 😡';
         banner.style.opacity = '1';
-        setTimeout(() => {
+
+        // Отменяем плашку ВПН до скрытия этого сообщения
+        // Затем после 2 секунд возвращаем текст и плавно скрываем
+        timeoutId = setTimeout(() => {
           banner.style.opacity = '0';
-          banner.textContent = 'Грузит лучше с VPN';
+          setTimeout(() => {
+            banner.textContent = 'Грузит лучше с VPN';
+            banner.style.opacity = '1';
+          }, 500);
           clickCount = 0;
         }, 2000);
       }
