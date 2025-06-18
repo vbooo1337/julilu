@@ -338,11 +338,6 @@
       <span>🚗 Выезд по городу — 1000₽</span>
       <span>⏰ Выезд до 8:00 — +500₽ / час</span>
     </div>
-    <div class="toggle-button" id="toggleBtnInside" title="Скрыть прайс">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="18 15 12 9 6 15" />
-      </svg>
-    </div>
   </div>
 
   <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
@@ -358,17 +353,26 @@
   <script>
     const pricePanel = document.getElementById('pricePanel');
     const toggleBtnMain = document.getElementById('toggleBtnMain');
-    const toggleBtnInside = document.getElementById('toggleBtnInside');
     const shareMenu = document.getElementById('shareMenu');
 
     function togglePrice() {
       const isActive = pricePanel.classList.toggle('active');
       toggleBtnMain.style.display = isActive ? 'none' : 'flex';
-      toggleBtnInside.style.display = isActive ? 'flex' : 'none';
     }
 
     toggleBtnMain.addEventListener('click', togglePrice);
-    toggleBtnInside.addEventListener('click', togglePrice);
+
+    // Сворачивание прайс-листа при клике вне его
+    document.addEventListener('click', (e) => {
+      if (
+        pricePanel.classList.contains('active') &&
+        !pricePanel.contains(e.target) &&
+        !toggleBtnMain.contains(e.target)
+      ) {
+        pricePanel.classList.remove('active');
+        toggleBtnMain.style.display = 'flex';
+      }
+    });
 
     function toggleShareMenu() {
       if (shareMenu.classList.contains('hidden')) {
