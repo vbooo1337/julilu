@@ -346,6 +346,26 @@
       z-index: 9999;
       user-select: none;
     }
+
+    /* Стиль плашки для сообщения после 10 блесток */
+    #messageBanner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: opacity 0.5s ease;
+      user-select: none;
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -410,6 +430,8 @@
     </svg>
   </div>
 
+  <div id="messageBanner"></div>
+
   <div class="landscape-warning">
     Пожалуйста, переверните телефон в портретный режим 📱
   </div>
@@ -419,6 +441,7 @@
     const toggleBtnMain = document.getElementById('toggleBtnMain');
     const shareMenu = document.getElementById('shareMenu');
     const banner = document.getElementById('centerBanner');
+    const messageBanner = document.getElementById('messageBanner');
     const imageContainer = document.getElementById('imageContainer');
     const rageEmoji = document.getElementById('rageEmoji');
     const mainCard = document.getElementById('mainCard');
@@ -531,6 +554,7 @@
     const card = document.getElementById('mainCard');
 
     let score = 0;
+    let gameActive = true;
 
     function getRandomPosition() {
       const rect = card.getBoundingClientRect();
@@ -545,18 +569,42 @@
       sparkle.style.top = pos.y + 'px';
     }
 
+    function showMessage(text, duration) {
+      messageBanner.textContent = text;
+      messageBanner.style.opacity = '1';
+      setTimeout(() => {
+        messageBanner.style.opacity = '0';
+        setTimeout(() => {
+          messageBanner.textContent = '';
+        }, 500);
+      }, duration);
+    }
+
     sparkle.addEventListener('click', () => {
+      if (!gameActive) return;
+
       score++;
       scoreBoard.textContent = score;
       sparkle.style.transform = 'scale(1.8)';
       setTimeout(() => {
         sparkle.style.transform = 'scale(1)';
       }, 200);
-      moveSparkle();
+
+      if (score >= 10) {
+        gameActive = false;
+        sparkle.style.display = 'none';
+        showMessage('Малышка, займись делом, запишись на макияж 😉', 4000);
+        scoreBoard.textContent = '';
+        scoreBoard.style.color = 'green';
+      } else {
+        moveSparkle();
+      }
     });
 
     setInterval(() => {
-      moveSparkle();
+      if (gameActive) {
+        moveSparkle();
+      }
     }, 3000);
 
     moveSparkle();
