@@ -32,9 +32,7 @@
       padding: 10px 20px;
       border-radius: 8px;
       z-index: 9999;
-      /* Показать сразу */
-      opacity: 1;
-      visibility: visible;
+      opacity: 0;
       pointer-events: none;
       white-space: nowrap;
       transition: opacity 0.5s ease;
@@ -262,6 +260,7 @@
       border-radius: 8px;
       padding: 8px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      display: none;
       gap: 10px;
       justify-content: center;
       align-items: center;
@@ -440,12 +439,24 @@
       window.open(url, '_blank', 'noopener');
     }
 
-    // После полной загрузки страницы скрываем баннер VPN
-    window.addEventListener('load', () => {
-      banner.style.opacity = '0';
+    // Функция показа баннера с заданным текстом и временем показа
+    function showBanner(text, duration, callback) {
+      banner.textContent = text;
+      banner.style.opacity = '1';
       setTimeout(() => {
-        banner.style.visibility = 'hidden';
-      }, 500);
+        banner.style.opacity = '0';
+        setTimeout(() => {
+          if (callback) callback();
+        }, 500);
+      }, duration);
+    }
+
+    // Показываем баннер VPN сразу при загрузке (до полной загрузки)
+    showBanner('Грузит лучше с VPN', 2000);
+
+    // Показываем баннер VPN и после полной загрузки (на всякий случай)
+    window.addEventListener('load', () => {
+      showBanner('Грузит лучше с VPN', 2000);
     });
 
     let clickCount = 0;
@@ -482,19 +493,6 @@
         }
       }
     });
-
-    // Функция показа баннера с заданным текстом и временем показа
-    function showBanner(text, duration, callback) {
-      banner.textContent = text;
-      banner.style.opacity = '1';
-      banner.style.visibility = 'visible';
-      setTimeout(() => {
-        banner.style.opacity = '0';
-        setTimeout(() => {
-          if (callback) callback();
-        }, 500);
-      }, duration);
-    }
   </script>
 </body>
 </html>
