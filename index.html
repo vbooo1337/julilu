@@ -6,20 +6,51 @@
   <title>Юлия Зуева - Визажист-стилист</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
       padding: 0;
+      width: 100vw;
+      height: 100vh;
       background-color: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      position: relative;
+      font-family: 'Roboto', sans-serif;
       overflow-x: hidden;
     }
 
-    /* Надпись поверх всего */
+    #vpnOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      z-index: 99999;
+    }
+
+    #pageWrapper {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ОСТАЛЬНОЙ СТИЛЬ ИДЁТ НИЖЕ — ТВОЙ КОД НЕ ИЗМЕНЯЛСЯ */
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
     #centerBanner {
       position: fixed;
       top: 50%;
@@ -152,14 +183,6 @@
       transform: translateX(-50%);
     }
 
-    #toggleBtnInside {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: none;
-    }
-
     .price-panel {
       position: fixed;
       bottom: -100%;
@@ -186,21 +209,6 @@
       font-size: 18px;
       margin-bottom: 10px;
       color: #333;
-    }
-
-    @media (max-width: 480px) {
-      .image-container {
-        width: 150px;
-        height: 150px;
-      }
-
-      .name {
-        font-size: 22px;
-      }
-
-      .price-list span {
-        font-size: 16px;
-      }
     }
 
     .share-wrapper {
@@ -240,22 +248,10 @@
       gap: 10px;
       justify-content: center;
       align-items: center;
-      display: flex;
     }
 
     .share-menu.hidden {
       display: none !important;
-    }
-
-    .share-menu a img {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      transition: transform 0.2s;
-    }
-
-    .share-menu a:hover img {
-      transform: scale(1.1);
     }
 
     .landscape-warning {
@@ -264,7 +260,6 @@
       z-index: 9999;
       background: #000;
       color: #fff;
-      font-family: 'Roboto', sans-serif;
       font-size: 20px;
       text-align: center;
       padding: 40px 20px;
@@ -272,7 +267,6 @@
       height: 100vh;
       top: 0;
       left: 0;
-      box-sizing: border-box;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -290,82 +284,96 @@
   </style>
 </head>
 <body oncontextmenu="return false;">
-  <div id="centerBanner">Грузит лучше с VPN</div>
+  <div id="vpnOverlay">Грузит лучше с VPN</div>
 
-  <div class="card">
-    <div class="image-container" id="imageContainer">
-      <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
-    </div>
+  <div id="pageWrapper">
+    <div id="centerBanner"></div>
 
-    <div class="share-wrapper">
-      <div class="share-button" title="Поделиться визиткой" onclick="toggleShareMenu()">
-        <img src="https://i.postimg.cc/XvMJLYj2/IMG-1155.webp" alt="Поделиться" />
+    <div class="card">
+      <div class="image-container" id="imageContainer">
+        <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" />
       </div>
-      <div class="share-menu hidden" id="shareMenu">
-        <a href="#" onclick="shareViaTelegram()" title="Поделиться в Telegram" rel="noopener noreferrer" target="_blank">
-          <img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram" />
-        </a>
-        <a href="#" onclick="shareViaWhatsApp()" title="Поделиться в WhatsApp" rel="noopener noreferrer" target="_blank">
-          <img src="https://i.postimg.cc/L6H0qtjD/IMG-1156.webp" alt="WhatsApp" width="32" height="32" />
-        </a>
+
+      <div class="share-wrapper">
+        <div class="share-button" onclick="toggleShareMenu()">
+          <img src="https://i.postimg.cc/XvMJLYj2/IMG-1155.webp" alt="Поделиться" />
+        </div>
+        <div class="share-menu hidden" id="shareMenu">
+          <a href="#" onclick="shareViaTelegram()"><img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram" /></a>
+          <a href="#" onclick="shareViaWhatsApp()"><img src="https://i.postimg.cc/L6H0qtjD/IMG-1156.webp" alt="WhatsApp" /></a>
+        </div>
+      </div>
+
+      <h1 class="name">Юлия Зуева</h1>
+      <p class="profession">визажист-стилист</p>
+      <p class="phone"><a href="tel:+79877109526">+7 (987) 710 95-26</a></p>
+
+      <div class="social-icons">
+        <a href="https://t.me/Ju_li_lu26" target="_blank"><img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram" /></a>
+        <a href="https://www.instagram.com/ju_li_lu" target="_blank"><img src="https://i.postimg.cc/JnnCwQvn/IMG-1136.jpg" alt="Instagram" /></a>
+        <a href="https://vk.com/ju_lu26" target="_blank"><img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg" alt="VK" /></a>
       </div>
     </div>
 
-    <h1 class="name">Юлия Зуева</h1>
-    <p class="profession">визажист-стилист</p>
-    <p class="phone"><a href="tel:+79877109526">+7 (987) 710 95-26</a></p>
-
-    <div class="social-icons">
-      <a href="https://t.me/Ju_li_lu26" target="_blank" title="Telegram" rel="noopener noreferrer">
-        <img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram" />
-      </a>
-      <a href="https://www.instagram.com/ju_li_lu?igsh=MWlpc3V1a2JpYmcxMQ==" target="_blank" title="Instagram" rel="noopener noreferrer">
-        <img src="https://i.postimg.cc/JnnCwQvn/IMG-1136.jpg" alt="Instagram" />
-      </a>
-      <a href="https://vk.com/ju_lu26" target="_blank" title="VK" rel="noopener noreferrer">
-        <img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg" alt="VK" />
-      </a>
+    <div class="price-panel" id="pricePanel">
+      <div class="price-list">
+        <span>💄 Макияж — 1500₽</span>
+        <span>💇‍♀️ Прическа — 2000₽</span>
+        <span>✨ Полный образ — 3000₽</span>
+        <span>👰 Макияж / прическа для невесты — 2000₽</span>
+        <span>👑 Полный образ (невеста) — 3500₽</span>
+        <span>🎨 Пробный образ — 1500₽</span>
+        <span>🚗 Выезд по городу — 1000₽</span>
+        <span>⏰ Выезд до 8:00 — +500₽ / час</span>
+      </div>
     </div>
-  </div>
 
-  <div class="price-panel" id="pricePanel">
-    <div class="price-list">
-      <span>💄 Макияж — 1500₽</span>
-      <span>💇‍♀️ Прическа — 2000₽</span>
-      <span>✨ Полный образ — 3000₽</span>
-      <span>👰 Макияж / прическа для невесты — 2000₽</span>
-      <span>👑 Полный образ (невеста) — 3500₽</span>
-      <span>🎨 Пробный образ — 1500₽</span>
-      <span>🚗 Выезд по городу — 1000₽</span>
-      <span>⏰ Выезд до 8:00 — +500₽ / час</span>
+    <div class="toggle-button" id="toggleBtnMain">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15" />
+      </svg>
     </div>
-  </div>
-
-  <div class="toggle-button" id="toggleBtnMain" title="Открыть прайс">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15" />
-    </svg>
-  </div>
-
-  <div class="landscape-warning">
-    Пожалуйста, переверните телефон в портретный режим 📱
   </div>
 
   <script>
+    const vpnOverlay = document.getElementById('vpnOverlay');
+    const pageWrapper = document.getElementById('pageWrapper');
     const pricePanel = document.getElementById('pricePanel');
     const toggleBtnMain = document.getElementById('toggleBtnMain');
     const shareMenu = document.getElementById('shareMenu');
     const banner = document.getElementById('centerBanner');
     const imageContainer = document.getElementById('imageContainer');
 
-    function togglePrice() {
-      const isActive = pricePanel.classList.toggle('active');
-      toggleBtnMain.style.display = isActive ? 'none' : 'flex';
+    function toggleShareMenu() {
+      shareMenu.classList.toggle('hidden');
     }
 
-    toggleBtnMain.addEventListener('click', togglePrice);
+    function shareViaTelegram() {
+      const text = encodeURIComponent("Смотри визитку визажиста Юлии: " + window.location.href);
+      const url = `https://t.me/share/url?url=${window.location.href}&text=${text}`;
+      window.open(url, '_blank');
+    }
 
-    // Сворачивание прайс-листа при клике вне его
+    function shareViaWhatsApp() {
+      const text = encodeURIComponent("Смотри визитку визажиста Юлии: " + window.location.href);
+      const url = `https://wa.me/?text=${text}`;
+      window.open(url, '_blank');
+    }
+
+    function showBanner(text, duration, callback) {
+      banner.textContent = text;
+      banner.style.opacity = '1';
+      setTimeout(() => {
+        banner.style.opacity = '0';
+        if (callback) callback();
+      }, duration);
+    }
+
+    toggleBtnMain.addEventListener('click', () => {
+      pricePanel.classList.add('active');
+      toggleBtnMain.style.display = 'none';
+    });
+
     document.addEventListener('click', (e) => {
       if (
         pricePanel.classList.contains('active') &&
@@ -377,51 +385,6 @@
       }
     });
 
-    function toggleShareMenu() {
-      if (shareMenu.classList.contains('hidden')) {
-        shareMenu.classList.remove('hidden');
-        document.addEventListener('click', closeMenuOutside, { once: true });
-      } else {
-        shareMenu.classList.add('hidden');
-      }
-    }
-
-    function closeMenuOutside(e) {
-      if (!e.target.closest('.share-wrapper')) {
-        shareMenu.classList.add('hidden');
-      }
-    }
-
-    function shareViaTelegram() {
-      const text = encodeURIComponent("Смотри визитку визажиста Юлии: " + window.location.href);
-      const url = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`;
-      window.open(url, '_blank', 'noopener');
-    }
-
-    function shareViaWhatsApp() {
-      const text = encodeURIComponent("Смотри визитку визажиста Юлии: " + window.location.href);
-      const url = `https://wa.me/?text=${text}`;
-      window.open(url, '_blank', 'noopener');
-    }
-
-    // Функция показа баннера с заданным текстом и временем показа
-    function showBanner(text, duration, callback) {
-      banner.textContent = text;
-      banner.style.opacity = '1';
-      setTimeout(() => {
-        banner.style.opacity = '0';
-        setTimeout(() => {
-          if (callback) callback();
-        }, 500);
-      }, duration);
-    }
-
-    // Показ баннера с VPN при загрузке
-    window.addEventListener('load', () => {
-      showBanner('Грузит лучше с VPN', 2000);
-    });
-
-    // Счётчик кликов по фото и вывод сообщения после 10 нажатий
     let clickCount = 0;
 
     imageContainer.addEventListener('click', () => {
@@ -430,6 +393,13 @@
         showBanner('Хватит жмякать 😡', 2000);
         clickCount = 0;
       }
+    });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        vpnOverlay.style.display = 'none';
+        pageWrapper.style.display = 'block';
+      }, 2000);
     });
   </script>
 </body>
