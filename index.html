@@ -32,7 +32,7 @@
       padding: 10px 20px;
       border-radius: 8px;
       z-index: 9999;
-      opacity: 0;
+      opacity: 1;
       pointer-events: none;
       white-space: nowrap;
       transition: opacity 0.5s ease;
@@ -406,7 +406,6 @@
 
     // Показ и скрытие надписи "Грузит лучше с VPN"
     window.addEventListener('load', () => {
-      banner.style.opacity = '1';
       setTimeout(() => {
         banner.style.opacity = '0';
       }, 2000);
