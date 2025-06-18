@@ -65,6 +65,7 @@
       border: 3px solid #ddd;
       position: relative;
       flex-shrink: 0;
+      cursor: pointer;
     }
 
     .image-container img {
@@ -292,7 +293,7 @@
   <div id="centerBanner">Грузит лучше с VPN</div>
 
   <div class="card">
-    <div class="image-container">
+    <div class="image-container" id="imageContainer">
       <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
     </div>
 
@@ -354,6 +355,8 @@
     const pricePanel = document.getElementById('pricePanel');
     const toggleBtnMain = document.getElementById('toggleBtnMain');
     const shareMenu = document.getElementById('shareMenu');
+    const banner = document.getElementById('centerBanner');
+    const imageContainer = document.getElementById('imageContainer');
 
     function togglePrice() {
       const isActive = pricePanel.classList.toggle('active');
@@ -401,13 +404,27 @@
       window.open(url, '_blank', 'noopener');
     }
 
-    // Показ и скрытие надписи
+    // Показ и скрытие надписи "Грузит лучше с VPN"
     window.addEventListener('load', () => {
-      const banner = document.getElementById('centerBanner');
       banner.style.opacity = '1';
       setTimeout(() => {
         banner.style.opacity = '0';
       }, 2000);
+    });
+
+    // Счётчик кликов по фото и вывод сообщения после 10 нажатий
+    let clickCount = 0;
+    imageContainer.addEventListener('click', () => {
+      clickCount++;
+      if (clickCount === 10) {
+        banner.textContent = 'Хватит жмякать 😡';
+        banner.style.opacity = '1';
+        setTimeout(() => {
+          banner.style.opacity = '0';
+          banner.textContent = 'Грузит лучше с VPN';
+          clickCount = 0;
+        }, 2000);
+      }
     });
   </script>
 </body>
