@@ -226,7 +226,6 @@
         font-size: 16px;
       }
     }
-
     .share-wrapper {
       position: absolute;
       top: 20px;
@@ -347,7 +346,6 @@
       user-select: none;
     }
 
-    /* Стиль плашки для сообщения после 10 блесток */
     #messageBanner {
       position: fixed;
       top: 50%;
@@ -365,6 +363,48 @@
       white-space: nowrap;
       transition: opacity 0.5s ease;
       user-select: none;
+    }
+
+    /* --- Видео оверлей --- */
+    #videoOverlay {
+      display: none;
+      position: fixed;
+      top:0; left:0; width:100vw; height:100vh;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      flex-direction: column;
+    }
+
+    #videoOverlay video {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
+    #closeVideoBtn {
+      margin-top: 20px;
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    }
+
+    #closeVideoBtn svg {
+      width: 18px;
+      height: 18px;
+      stroke: black;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
   </style>
 </head>
@@ -436,6 +476,19 @@
     Пожалуйста, переверните телефон в портретный режим 📱
   </div>
 
+  <!-- Видеоплеер с затемнением -->
+  <div id="videoOverlay">
+    <video id="vkVideo" autoplay muted playsinline>
+      <source src="https://files.catbox.moe/t12xsq.mov" type="video/mp4" />
+      Твой браузер не поддерживает видео.
+    </video>
+    <div id="closeVideoBtn" title="Закрыть видео">
+      <svg viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </div>
+  </div>
   <script>
     const pricePanel = document.getElementById('pricePanel');
     const toggleBtnMain = document.getElementById('toggleBtnMain');
@@ -454,7 +507,6 @@
 
     toggleBtnMain.addEventListener('click', togglePrice);
 
-    // Сворачивание прайс-листа при клике вне его
     document.addEventListener('click', (e) => {
       if (
         pricePanel.classList.contains('active') &&
@@ -493,7 +545,6 @@
       window.open(url, '_blank', 'noopener');
     }
 
-    // Функция показа баннера с заданным текстом и временем показа
     function showBanner(text, duration, callback) {
       banner.textContent = text;
       banner.style.opacity = '1';
@@ -505,10 +556,7 @@
       }, duration);
     }
 
-    // Показываем баннер VPN сразу при загрузке (до полной загрузки)
     showBanner('Грузит лучше с VPN', 2000);
-
-    // Показываем баннер VPN и после полной загрузки (на всякий случай)
     window.addEventListener('load', () => {
       showBanner('Грузит лучше с VPN', 2000);
     });
@@ -548,7 +596,6 @@
       }
     });
 
-    // --- Игра "Поймай блестку" ---
     const sparkle = document.getElementById('sparkle');
     const scoreBoard = document.getElementById('scoreBoard');
     const card = document.getElementById('mainCard');
@@ -608,6 +655,32 @@
     }, 3000);
 
     moveSparkle();
+
+    // --- Видео: автозапуск через 20 сек бездействия ---
+    let idleTimer;
+    let overlay = document.getElementById('videoOverlay');
+    let video = document.getElementById('vkVideo');
+    let closeBtn = document.getElementById('closeVideoBtn');
+
+    function resetIdleTimer() {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        overlay.style.display = 'flex';
+        video.play();
+      }, 20000);
+    }
+
+    ['mousemove', 'mousedown', 'touchstart', 'keydown'].forEach(evt => {
+      document.addEventListener(evt, resetIdleTimer);
+    });
+
+    resetIdleTimer();
+
+    closeBtn.addEventListener('click', () => {
+      overlay.style.display = 'none';
+      video.pause();
+      video.currentTime = 0;
+    });
   </script>
 </body>
 </html>
