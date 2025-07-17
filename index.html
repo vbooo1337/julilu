@@ -321,15 +321,31 @@
     /* --- Новый стиль для игры --- */
     #sparkle {
       position: absolute;
-      font-size: 40px;
+      width: 30px; /* Base size */
+      height: 30px; /* Base size */
+      background-color: black;
+      border-radius: 50%;
       cursor: pointer;
       user-select: none;
-      transition: transform 0.2s ease;
       z-index: 20;
+      transform-origin: center center; /* Ensures scaling is from the center */
+      transition: none; /* No immediate transition, animation handles it */
+      opacity: 1; /* Start visible */
     }
 
-    #sparkle:hover {
-      transform: scale(1.3);
+    #sparkle.shrink {
+        animation: shrinkSparkle 1.5s forwards linear; /* Adjust duration and timing function */
+    }
+
+    @keyframes shrinkSparkle {
+        from {
+            transform: scale(1); /* Start at original size */
+            opacity: 1;
+        }
+        to {
+            transform: scale(0.033); /* Shrink to ~1px (1/30 of 30px) */
+            opacity: 0;
+        }
     }
 
     #scoreBoard {
@@ -367,14 +383,19 @@
 
     /* --- Видео оверлей --- */
     #videoOverlay {
-      display: none;
+      display: none; /* Crucial: Set initial display to none */
       position: fixed;
-      top:0; left:0; width:100vw; height:100vh;
-      background: rgba(0,0,0,0.9);
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 99999;
+      /* Remove display: flex; from here */
       justify-content: center;
       align-items: center;
-      z-index: 99999;
       flex-direction: column;
+      box-sizing: border-box;
     }
 
     #videoOverlay video {
@@ -382,29 +403,7 @@
       max-height: 90vh;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(255,255,255,0.5);
-    }
-
-    #closeVideoBtn {
-      margin-top: 20px;
-      width: 36px;
-      height: 36px;
-      background: white;
-      border-radius: 50%;
       cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 0 6px rgba(0,0,0,0.3);
-    }
-
-    #closeVideoBtn svg {
-      width: 18px;
-      height: 18px;
-      stroke: black;
-      stroke-width: 2;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
     }
   </style>
 </head>
@@ -417,7 +416,7 @@
       <div id="rageEmoji">🤬</div>
     </div>
 
-    <div id="sparkle" title="Поймай блестку!">✨</div>
+    <div id="sparkle" title="Поймай кружок!"></div>
     <div id="scoreBoard">0</div>
 
     <div class="share-wrapper">
@@ -476,18 +475,11 @@
     Пожалуйста, переверните телефон в портретный режим 📱
   </div>
 
-  <!-- Видеоплеер с затемнением -->
   <div id="videoOverlay">
-    <video id="vkVideo" autoplay muted playsinline>
+    <video id="vkVideo" muted playsinline>
       <source src="https://files.catbox.moe/t12xsq.mov" type="video/mp4" />
       Твой браузер не поддерживает видео.
     </video>
-    <div id="closeVideoBtn" title="Закрыть видео">
-      <svg viewBox="0 0 24 24">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </div>
   </div>
   <script>
     const pricePanel = document.getElementById('pricePanel');
@@ -599,21 +591,44 @@
     const sparkle = document.getElementById('sparkle');
     const scoreBoard = document.getElementById('scoreBoard');
     const card = document.getElementById('mainCard');
+    let sparkleTimeout; // To hold the timeout for resetting sparkle if not clicked
 
     let score = 0;
     let gameActive = true;
 
     function getRandomPosition() {
       const rect = card.getBoundingClientRect();
-      const x = Math.random() * (rect.width - 40);
-      const y = Math.random() * (rect.height - 40);
+      // Adjust offsets to keep the sparkle fully within the card
+      const sparkleSize = 30; // The base size of the sparkle
+      const x = Math.random() * (rect.width - sparkleSize);
+      const y = Math.random() * (rect.height - sparkleSize);
       return { x, y };
     }
 
     function moveSparkle() {
+      if (!gameActive) return;
+
+      clearTimeout(sparkleTimeout); // Clear any existing timeout for the current sparkle
+
+      sparkle.style.transform = 'scale(1)';
+      sparkle.style.opacity = '1';
+      sparkle.classList.remove('shrink'); // Ensure it's not shrinking from a previous state
+      void sparkle.offsetWidth; // Trigger reflow to restart animation if class was just removed
+
       const pos = getRandomPosition();
       sparkle.style.left = pos.x + 'px';
       sparkle.style.top = pos.y + 'px';
+
+      // Start the shrinking animation immediately after positioning
+      sparkle.classList.add('shrink');
+
+      // Set a timeout to move the sparkle if it's not clicked within its animation duration
+      const animationDuration = parseFloat(getComputedStyle(sparkle).animationDuration) * 1000;
+      sparkleTimeout = setTimeout(() => {
+          if (gameActive) { // Only move if the game is still active
+              moveSparkle();
+          }
+      }, animationDuration + 50); // A small buffer after animation ends
     }
 
     function showMessage(text, duration) {
@@ -630,56 +645,62 @@
     sparkle.addEventListener('click', () => {
       if (!gameActive) return;
 
+      clearTimeout(sparkleTimeout); // Clear timeout since it was clicked
+
       score++;
       scoreBoard.textContent = score;
-      sparkle.style.transform = 'scale(1.8)';
-      setTimeout(() => {
-        sparkle.style.transform = 'scale(1)';
-      }, 200);
 
+      // Reset for next appearance instantly
+      moveSparkle();
+      
       if (score >= 10) {
         gameActive = false;
         sparkle.style.display = 'none';
         showMessage('Малышка, займись делом, запишись на макияж 😉', 4000);
         scoreBoard.textContent = '';
         scoreBoard.style.color = 'green';
-      } else {
-        moveSparkle();
-      }
+      } 
     });
 
-    setInterval(() => {
-      if (gameActive) {
-        moveSparkle();
-      }
-    }, 3000);
-
+    // Initial move when the page loads
     moveSparkle();
 
-    // --- Видео: автозапуск через 20 сек бездействия ---
+    // --- Видео: автозапуск через 20 сек бездействия и автоматическое закрытие при клике или по завершении ---
     let idleTimer;
-    let overlay = document.getElementById('videoOverlay');
-    let video = document.getElementById('vkVideo');
-    let closeBtn = document.getElementById('closeVideoBtn');
+    const overlay = document.getElementById('videoOverlay');
+    const video = document.getElementById('vkVideo');
+
+    function closeVideo() {
+      overlay.style.display = 'none';
+      video.pause();
+      video.currentTime = 0; // Сбрасываем время видео на начало
+      resetIdleTimer(); // Сбрасываем таймер бездействия
+    }
 
     function resetIdleTimer() {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
-        overlay.style.display = 'flex';
+        overlay.style.display = 'flex'; // Make the overlay visible only when timer expires
         video.play();
-      }, 20000);
+      }, 20000); // 20 seconds of inactivity
     }
 
+    // Handlers to reset the idle timer
     ['mousemove', 'mousedown', 'touchstart', 'keydown'].forEach(evt => {
       document.addEventListener(evt, resetIdleTimer);
     });
 
+    // Initialize the timer on page load
     resetIdleTimer();
 
-    closeBtn.addEventListener('click', () => {
-      overlay.style.display = 'none';
-      video.pause();
-      video.currentTime = 0;
+    // Close video on completion
+    video.addEventListener('ended', closeVideo);
+
+    // Close video when clicking on the overlay (including the video itself)
+    overlay.addEventListener('click', (event) => {
+      if (event.target === overlay || event.target === video) {
+        closeVideo();
+      }
     });
   </script>
 </body>
