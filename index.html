@@ -21,63 +21,12 @@ body {
 }
 body.blurred { filter: blur(8px); }
 
-#centerBanner {
-  position: fixed;
-  top: 30px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  background-color: #000;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  z-index: 9999;
-  opacity: 0;
-  pointer-events: none;
-  white-space: nowrap;
-  transition: opacity 0.5s ease;
-}
+#centerBanner { position: fixed; top: 30px; left: 50%; transform: translate(-50%, -50%); font-family: 'Roboto', sans-serif; font-size: 16px; background-color: #000; color: #fff; padding: 10px 20px; border-radius: 8px; z-index: 9999; opacity: 0; pointer-events: none; white-space: nowrap; transition: opacity 0.5s ease; }
 
-.card {
-  background-color: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  width: 100%;
-  max-width: 400px;
-  height: 100vh;
-  padding: 40px 20px;
-  box-sizing: border-box;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  transition: background-color 0.3s ease;
-}
+.card { background-color: white; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width: 100%; max-width: 400px; height: 100vh; padding: 40px 20px; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; transition: background-color 0.3s ease; }
 
-.image-container {
-  width: 180px;
-  height: 180px;
-  aspect-ratio: 1/1;
-  margin: 0 auto 20px;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 3px solid #ddd;
-  position: relative;
-  flex-shrink: 0;
-  cursor: pointer;
-  user-select: none;
-}
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  user-select: none;
-  display: block;
-}
+.image-container { width: 180px; height: 180px; aspect-ratio: 1/1; margin: 0 auto 20px; overflow: hidden; border-radius: 50%; border: 3px solid #ddd; position: relative; flex-shrink: 0; cursor: pointer; user-select: none; }
+.image-container img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; user-select: none; display: block; }
 
 .name { font-size: 26px; font-weight: bold; color: #333; margin: 10px 0 5px; }
 .profession { font-size: 18px; color: #666; margin: 0 0 15px; }
@@ -88,108 +37,33 @@ body.blurred { filter: blur(8px); }
 .social-icons a img { width: 32px; height: 32px; border-radius: 6px; transition: transform 0.2s; }
 .social-icons a:hover img { transform: scale(1.1); }
 
-.toggle-button {
-  background: #fff;
-  border: 2px solid #000;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  z-index: 10;
-}
+.toggle-button { background: #fff; border: 2px solid #000; border-radius: 50%; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.4s ease; z-index: 10; }
 .toggle-button svg { width: 14px; height: 14px; stroke: #000; transition: transform 0.3s ease; }
 .toggle-button.active svg { transform: rotate(180deg); }
 
 #toggleBtnMain { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); }
 
-.price-panel {
-  position: fixed;
-  bottom: -100%;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(255,255,255,0.3);
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 24px 20px 60px;
-  transition: bottom 0.5s ease;
-  border-radius: 20px 20px 0 0;
-  z-index: 5;
-  box-sizing: border-box;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-}
+.price-panel { position: fixed; bottom: -100%; left: 0; right: 0; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.3); max-width: 400px; margin: 0 auto; padding: 24px 20px 60px; transition: bottom 0.5s ease; border-radius: 20px 20px 0 0; z-index: 5; box-sizing: border-box; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); }
 .price-panel.active { bottom: 0; }
 
-.price-list span { 
-  display: block; 
-  font-size: 18px; 
-  margin-bottom: 10px; 
-  color: #111;
-}
+.price-list span { display: block; font-size: 18px; margin-bottom: 10px; color: #111; }
 
-@media (max-width: 480px) {
-  .image-container { width: 150px; height: 150px; }
-  .name { font-size: 22px; }
-  .price-list span { font-size: 16px; }
-}
+@media (max-width: 480px) { .image-container { width: 150px; height: 150px; } .name { font-size: 22px; } .price-list span { font-size: 16px; } }
 
 .share-wrapper { position: absolute; top: 20px; right: 20px; z-index: 10; }
 .share-button { width: 32px; height: 32px; cursor: pointer; }
 .share-button img { width: 100%; height: 100%; border-radius: 6px; transition: transform 0.2s; }
 .share-button:hover img { transform: scale(1.1); }
 
-.share-menu {
-  position: absolute;
-  top: 40px;
-  right: 0;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-  display: none;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
+.share-menu { position: absolute; top: 40px; right: 0; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.15); display: flex; gap: 10px; justify-content: center; align-items: center; }
 .share-menu.hidden { display: none !important; }
 
-.landscape-warning {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  background: #000;
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  text-align: center;
-  padding: 40px 20px;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-@media screen and (orientation: landscape) and (max-width: 900px) {
-  body > *:not(.landscape-warning) { display: none !important; }
-  .landscape-warning { display: flex; }
-}
+.landscape-warning { display: none; position: fixed; z-index: 9999; background: #000; color: #fff; font-family: 'Roboto', sans-serif; font-size: 20px; text-align: center; padding: 40px 20px; width: 100vw; height: 100vh; top: 0; left: 0; box-sizing: border-box; justify-content: center; align-items: center; flex-direction: column; }
+@media screen and (orientation: landscape) and (max-width: 900px) { body > *:not(.landscape-warning) { display: none !important; } .landscape-warning { display: flex; } }
 
 .disabled { pointer-events: none !important; user-select: none !important; opacity: 0.6; }
 
-.lava-drop { position:absolute; border-radius:50%; background-color:red; opacity:0.5; pointer-events:none; transition: background-color 2s, transform 0.5s ease; z-index:50; }
-.particle { position:absolute; width:6px; height:6px; border-radius:50%; background-color:green; opacity:0.8; pointer-events:none; z-index:60; transition: transform 0.5s ease, opacity 0.5s ease; }
+.lava-drop { position:absolute; border-radius:50%; background-color:red; opacity:1; pointer-events:none; z-index:50; transition: background-color 2s linear, opacity 1.5s linear; }
 
 #sparkle { position:absolute; width:30px; height:30px; background-color:black; border-radius:50%; cursor:pointer; user-select:none; z-index:20; transform-origin:center center; transition:none; opacity:1; }
 #sparkle.shrink { animation: shrinkSparkle 1.5s forwards linear; }
@@ -212,16 +86,12 @@ body.blurred { filter: blur(8px); }
   <div id="scoreBoard">0</div>
 
   <div class="share-wrapper">
-    <div class="share-button" title="Поделиться визиткой" onclick="toggleShareMenu()">
+    <div class="share-button" title="Поделиться визиткой" id="shareBtn">
       <img src="https://i.postimg.cc/XvMJLYj2/IMG-1155.webp" alt="Поделиться" />
     </div>
     <div class="share-menu hidden" id="shareMenu">
-      <a href="#" onclick="shareViaTelegram()" title="Поделиться в Telegram" rel="noopener noreferrer" target="_blank">
-        <img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram" width="32" height="32" />
-      </a>
-      <a href="#" onclick="shareViaWhatsApp()" title="Поделиться в WhatsApp" rel="noopener noreferrer" target="_blank">
-        <img src="https://i.postimg.cc/L6H0qtjD/IMG-1156.webp" alt="WhatsApp" width="32" height="32" />
-      </a>
+      <a href="#" id="tgShare" title="Telegram"><img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" width="32" height="32"/></a>
+      <a href="#" id="waShare" title="WhatsApp"><img src="https://i.postimg.cc/L6H0qtjD/IMG-1156.webp" width="32" height="32"/></a>
     </div>
   </div>
 
@@ -230,15 +100,9 @@ body.blurred { filter: blur(8px); }
   <p class="phone"><a href="tel:+79877109526">+7 (987) 710 95-26</a></p>
 
   <div class="social-icons">
-    <a href="https://t.me/Ju_li_lu26" target="_blank" title="Telegram" rel="noopener noreferrer">
-      <img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram" />
-    </a>
-    <a href="https://www.instagram.com/ju_li_lu?igsh=MWlpc3V1a2JpYmcxMQ==" target="_blank" title="Instagram" rel="noopener noreferrer">
-      <img src="https://i.postimg.cc/JnnCwQvn/IMG-1136.jpg" alt="Instagram" />
-    </a>
-    <a href="https://vk.com/ju_lu26" target="_blank" title="VK" rel="noopener noreferrer">
-      <img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg" alt="VK" />
-    </a>
+    <a href="https://t.me/Ju_li_lu26" target="_blank"><img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" alt="Telegram" /></a>
+    <a href="https://www.instagram.com/ju_li_lu" target="_blank"><img src="https://i.postimg.cc/JnnCwQvn/IMG-1136.jpg" alt="Instagram" /></a>
+    <a href="https://vk.com/ju_lu26" target="_blank"><img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg" alt="VK" /></a>
   </div>
 </div>
 
@@ -265,28 +129,27 @@ body.blurred { filter: blur(8px); }
 <div class="landscape-warning">Пожалуйста, переверните телефон в портретный режим 📱</div>
 
 <script>
-const pricePanel=document.getElementById('pricePanel');
-const toggleBtnMain=document.getElementById('toggleBtnMain');
-const shareMenu=document.getElementById('shareMenu');
-const banner=document.getElementById('centerBanner');
-const messageBanner=document.getElementById('messageBanner');
-const imageContainer=document.getElementById('imageContainer');
-const mainCard=document.getElementById('mainCard');
-const buttonsAndLinks=document.querySelectorAll('a, button, .toggle-button, .share-button');
+const pricePanel = document.getElementById('pricePanel');
+const toggleBtnMain = document.getElementById('toggleBtnMain');
+const shareMenu = document.getElementById('shareMenu');
+const banner = document.getElementById('centerBanner');
+const imageContainer = document.getElementById('imageContainer');
+const mainCard = document.getElementById('mainCard');
+const buttonsAndLinks = document.querySelectorAll('a, button, .toggle-button, .share-button');
 
-function togglePrice(){const isActive=pricePanel.classList.toggle('active');toggleBtnMain.style.display=isActive?'none':'flex';}
-toggleBtnMain.addEventListener('click',togglePrice);
-document.addEventListener('click',(e)=>{if(pricePanel.classList.contains('active')&&!pricePanel.contains(e.target)&&!toggleBtnMain.contains(e.target)){pricePanel.classList.remove('active');toggleBtnMain.style.display='flex';}});
+function togglePrice() { const isActive = pricePanel.classList.toggle('active'); toggleBtnMain.style.display = isActive ? 'none' : 'flex'; }
+toggleBtnMain.addEventListener('click', togglePrice);
+document.addEventListener('click', (e) => { if(pricePanel.classList.contains('active') && !pricePanel.contains(e.target) && !toggleBtnMain.contains(e.target)){ pricePanel.classList.remove('active'); toggleBtnMain.style.display='flex'; } });
 
-function toggleShareMenu(){if(shareMenu.classList.contains('hidden')){shareMenu.classList.remove('hidden');document.addEventListener('click',closeMenuOutside,{once:true});}else{shareMenu.classList.add('hidden');}}
-function closeMenuOutside(e){if(!e.target.closest('.share-wrapper')) shareMenu.classList.add('hidden');}
+function toggleShareMenu() { if(shareMenu.classList.contains('hidden')){ shareMenu.classList.remove('hidden'); document.addEventListener('click', closeMenuOutside, {once:true}); } else shareMenu.classList.add('hidden'); }
+function closeMenuOutside(e){ if(!e.target.closest('.share-wrapper')) shareMenu.classList.add('hidden'); }
 
-function shareViaTelegram(){const text=encodeURIComponent("Смотри визитку визажиста Юлии: "+window.location.href);const url=`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`;window.open(url,'_blank','noopener');}
-function shareViaWhatsApp(){const text=encodeURIComponent("Смотри визитку визажиста Юлии: "+window.location.href);const url=`https://wa.me/?text=${text}`;window.open(url,'_blank','noopener');}
+document.getElementById('shareBtn').addEventListener('click', toggleShareMenu);
+document.getElementById('tgShare').addEventListener('click',(e)=>{e.preventDefault(); const text=encodeURIComponent("Смотри визитку визажиста Юлии: "+window.location.href); window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`,'_blank','noopener');});
+document.getElementById('waShare').addEventListener('click',(e)=>{e.preventDefault(); const text=encodeURIComponent("Смотри визитку визажиста Юлии: "+window.location.href); window.open(`https://wa.me/?text=${text}`,'_blank','noopener');});
 
-function showBanner(text,duration,callback){banner.textContent=text;banner.style.opacity='1';setTimeout(()=>{banner.style.opacity='0';setTimeout(()=>{if(callback)callback();},500);},duration);}
+function showBanner(text,duration,callback){banner.textContent=text; banner.style.opacity='1'; setTimeout(()=>{banner.style.opacity='0';if(callback)callback();},duration);}
 showBanner('Грузит лучше с VPN',2000);
-window.addEventListener('load',()=>{showBanner('Грузит лучше с VPN',2000);});
 
 let clickCount=0,rageCount=0,gameActive=true;
 function disableButtons(state){buttonsAndLinks.forEach(el=>state?el.classList.add('disabled'):el.classList.remove('disabled'));}
@@ -295,57 +158,64 @@ function startLava(){
   document.body.classList.add('blurred');
   disableButtons(true);
   const drops=[];
-  const totalDrops=15;
-  for(let i=0;i<totalDrops;i++){
-    const drop=document.createElement('div');drop.className='lava-drop';
+  for(let i=0;i<15;i++){
+    const drop=document.createElement('div');
+    drop.className='lava-drop';
     const size=(i<6)?100:20+Math.random()*20;
     drop.style.width=drop.style.height=size+'px';
     const rect=mainCard.getBoundingClientRect();
     drop.style.left=Math.random()*(rect.width-size)+'px';
     drop.style.top=Math.random()*(rect.height-size)+'px';
-    document.body.appendChild(drop);
-    const dx=(Math.random()*2-1)*2,dy=(Math.random()*2-1)*2;
-    drops.push({el:drop,dx,dy});
+    mainCard.appendChild(drop);
+    const dx=(Math.random()*2-1)*2;
+    const dy=(Math.random()*2-1)*2;
+    drops.push({el:drop,dx,dy,fade:false});
   }
+  
+  const bigDrop=document.createElement('div');
+  bigDrop.className='lava-drop';
+  bigDrop.style.width=bigDrop.style.height='300px';
+  const rect=mainCard.getBoundingClientRect();
+  bigDrop.style.left=Math.random()*(rect.width-300)+'px';
+  bigDrop.style.top=Math.random()*(rect.height-300)+'px';
+  mainCard.appendChild(bigDrop);
+  const dx=(Math.random()*2-1)*1.5;
+  const dy=(Math.random()*2-1)*1.5;
+  drops.push({el:bigDrop,dx,dy,fade:false});
 
   let steps=0;
   const moveInterval=setInterval(()=>{
+    const rect=mainCard.getBoundingClientRect();
     drops.forEach(d=>{
-      const rect=mainCard.getBoundingClientRect();
       let x=parseFloat(d.el.style.left)+d.dx;
       let y=parseFloat(d.el.style.top)+d.dy;
       if(x<0||x>rect.width-parseFloat(d.el.style.width)) d.dx*=-1;
       if(y<0||y>rect.height-parseFloat(d.el.style.height)) d.dy*=-1;
-      d.el.style.left=(x<0?0:x>rect.width-parseFloat(d.el.style.width)?rect.width-parseFloat(d.el.style.width):x)+'px';
-      d.el.style.top=(y<0?0:y>rect.height-parseFloat(d.el.style.height)?rect.height-parseFloat(d.el.style.height):y)+'px';
+      d.el.style.left=Math.max(0,Math.min(rect.width-parseFloat(d.el.style.width),x))+'px';
+      d.el.style.top=Math.max(0,Math.min(rect.height-parseFloat(d.el.style.height),y))+'px';
     });
+
     steps++;
-    if(steps===250){ drops.forEach(d=>d.el.style.backgroundColor='green'); }
-    if(steps===400){
-      clearInterval(moveInterval);
-      let particlesLeft=0;
+    if(steps===250){
       drops.forEach(d=>{
-        for(let j=0;j<8;j++){
-          const p=document.createElement('div');p.className='particle';
-          p.style.left=d.el.offsetLeft+'px';
-          p.style.top=d.el.offsetTop+'px';
-          document.body.appendChild(p);
-          const angle=Math.random()*2*Math.PI,dist=20+Math.random()*10;
-          p.style.transform=`translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`;
-          particlesLeft++;
-          p.addEventListener('transitionend',()=>{
-            p.remove();
-            particlesLeft--;
-            if(particlesLeft===0){
-              disableButtons(false);
-              document.body.classList.remove('blurred');
-            }
-          });
-          setTimeout(()=>p.style.opacity='0',50);
-        }
-        d.el.remove();
+        d.el.style.backgroundColor='green'; 
       });
     }
+
+    if(steps>250) drops.forEach(d=>{
+      d.fade=true;
+      let currentOpacity=parseFloat(d.el.style.opacity);
+      if(isNaN(currentOpacity)) currentOpacity=1;
+      d.el.style.opacity=(currentOpacity-0.005).toString();
+    });
+
+    if(steps===500){
+      clearInterval(moveInterval);
+      drops.forEach(d=>d.el.remove());
+      disableButtons(false);
+      document.body.classList.remove('blurred');
+    }
+
   },20);
 }
 
@@ -365,20 +235,29 @@ imageContainer.addEventListener('click',()=>{
 
 const sparkle=document.getElementById('sparkle');
 const scoreBoard=document.getElementById('scoreBoard');
-const card=document.getElementById('mainCard');
 let sparkleTimeout, score=0;
 
-function getRandomPosition(){const rect=card.getBoundingClientRect();const sparkleSize=30;const x=Math.random()*(rect.width-sparkleSize);const y=Math.random()*(rect.height-sparkleSize);return{x,y};}
+function getRandomPosition(){
+  const rect=mainCard.getBoundingClientRect();
+  const sparkleSize=30;
+  return {x: Math.random()*(rect.width-sparkleSize), y: Math.random()*(rect.height-sparkleSize)};
+}
+
 function moveSparkle(){
   if(!gameActive) return;
   clearTimeout(sparkleTimeout);
-  sparkle.style.transform='scale(1)';sparkle.style.opacity='1';sparkle.classList.remove('shrink');void sparkle.offsetWidth;
+  sparkle.style.transform='scale(1)';
+  sparkle.style.opacity='1';
+  sparkle.classList.remove('shrink');
+  void sparkle.offsetWidth;
   const pos=getRandomPosition();
-  sparkle.style.left=pos.x+'px';sparkle.style.top=pos.y+'px';
+  sparkle.style.left=pos.x+'px';
+  sparkle.style.top=pos.y+'px';
   sparkle.classList.add('shrink');
-  const animationDuration=parseFloat(getComputedStyle(sparkle).animationDuration)*1000;
-  sparkleTimeout=setTimeout(()=>{if(gameActive) moveSparkle();},animationDuration+50);
+  const duration=parseFloat(getComputedStyle(sparkle).animationDuration)*1000;
+  sparkleTimeout=setTimeout(()=>{if(gameActive) moveSparkle();},duration+50);
 }
+
 sparkle.addEventListener('click',()=>{
   if(!gameActive) return;
   clearTimeout(sparkleTimeout);
