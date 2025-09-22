@@ -63,13 +63,11 @@ body.blurred { filter: blur(8px); }
 
 .disabled { pointer-events: none !important; user-select: none !important; opacity: 0.6; }
 
-.lava-drop { position:absolute; border-radius:50%; background-color:red; opacity:1; pointer-events:none; z-index:50; transition: background-color 2s linear, opacity 1.5s linear; }
-
 #sparkle { position:absolute; width:30px; height:30px; background-color:black; border-radius:50%; cursor:pointer; user-select:none; z-index:20; transform-origin:center center; transition:none; opacity:1; }
 #sparkle.shrink { animation: shrinkSparkle 1.5s forwards linear; }
 @keyframes shrinkSparkle { from{transform:scale(1);opacity:1;} to{transform:scale(0.033);opacity:0;} }
 
-#scoreBoard { position: fixed; top:10px; left:20px; font-family:'Roboto', sans-serif; font-size:18px; color:black; background:transparent; padding:6px 12px; border-radius:10px; z-index:9999; user-select:none; }
+#scoreBoard { position: fixed; top:10px; left:20px; font-family:'Roboto',sans-serif; font-size:18px; color:black; background:transparent; padding:6px 12px; border-radius:10px; z-index:9999; user-select:none; }
 
 #messageBanner { position: fixed; top:50%; left:50%; transform: translate(-50%, -50%); font-family:'Roboto',sans-serif; font-size:16px; background-color:rgba(0,0,0,0.85); color:#fff; padding:10px 20px; border-radius:8px; z-index:10000; opacity:0; pointer-events:none; white-space:nowrap; transition:opacity 0.5s ease; user-select:none; }
 </style>
@@ -151,76 +149,11 @@ document.getElementById('waShare').addEventListener('click',(e)=>{e.preventDefau
 function showBanner(text,duration,callback){banner.textContent=text; banner.style.opacity='1'; setTimeout(()=>{banner.style.opacity='0';if(callback)callback();},duration);}
 showBanner('Грузит лучше с VPN',2000);
 
-let clickCount=0,rageCount=0,gameActive=true;
+let clickCount=0,rageCount=0,gameActive=true,lavaActive=false;
 function disableButtons(state){buttonsAndLinks.forEach(el=>state?el.classList.add('disabled'):el.classList.remove('disabled'));}
 
-function startLava(){
-  document.body.classList.add('blurred');
-  disableButtons(true);
-  const drops=[];
-  for(let i=0;i<15;i++){
-    const drop=document.createElement('div');
-    drop.className='lava-drop';
-    const size=(i<6)?100:20+Math.random()*20;
-    drop.style.width=drop.style.height=size+'px';
-    const rect=mainCard.getBoundingClientRect();
-    drop.style.left=Math.random()*(rect.width-size)+'px';
-    drop.style.top=Math.random()*(rect.height-size)+'px';
-    mainCard.appendChild(drop);
-    const dx=(Math.random()*2-1)*2;
-    const dy=(Math.random()*2-1)*2;
-    drops.push({el:drop,dx,dy,fade:false});
-  }
-  
-  const bigDrop=document.createElement('div');
-  bigDrop.className='lava-drop';
-  bigDrop.style.width=bigDrop.style.height='300px';
-  const rect=mainCard.getBoundingClientRect();
-  bigDrop.style.left=Math.random()*(rect.width-300)+'px';
-  bigDrop.style.top=Math.random()*(rect.height-300)+'px';
-  mainCard.appendChild(bigDrop);
-  const dx=(Math.random()*2-1)*1.5;
-  const dy=(Math.random()*2-1)*1.5;
-  drops.push({el:bigDrop,dx,dy,fade:false});
-
-  let steps=0;
-  const moveInterval=setInterval(()=>{
-    const rect=mainCard.getBoundingClientRect();
-    drops.forEach(d=>{
-      let x=parseFloat(d.el.style.left)+d.dx;
-      let y=parseFloat(d.el.style.top)+d.dy;
-      if(x<0||x>rect.width-parseFloat(d.el.style.width)) d.dx*=-1;
-      if(y<0||y>rect.height-parseFloat(d.el.style.height)) d.dy*=-1;
-      d.el.style.left=Math.max(0,Math.min(rect.width-parseFloat(d.el.style.width),x))+'px';
-      d.el.style.top=Math.max(0,Math.min(rect.height-parseFloat(d.el.style.height),y))+'px';
-    });
-
-    steps++;
-    if(steps===250){
-      drops.forEach(d=>{
-        d.el.style.backgroundColor='green'; 
-      });
-    }
-
-    if(steps>250) drops.forEach(d=>{
-      d.fade=true;
-      let currentOpacity=parseFloat(d.el.style.opacity);
-      if(isNaN(currentOpacity)) currentOpacity=1;
-      d.el.style.opacity=(currentOpacity-0.005).toString();
-    });
-
-    if(steps===500){
-      clearInterval(moveInterval);
-      drops.forEach(d=>d.el.remove());
-      disableButtons(false);
-      document.body.classList.remove('blurred');
-    }
-
-  },20);
-}
-
 imageContainer.addEventListener('click',()=>{
-  if(!gameActive) return;
+  if(!gameActive || lavaActive) return;
   clickCount++;
   if(clickCount===10){
     rageCount++;
@@ -232,6 +165,77 @@ imageContainer.addEventListener('click',()=>{
     }
   }
 });
+
+function startLava(){
+  lavaActive = true;
+  document.body.classList.add('blurred');
+  disableButtons(true);
+
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'absolute';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = 50;
+  mainCard.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  canvas.width = mainCard.clientWidth;
+  canvas.height = mainCard.clientHeight;
+
+  const bubbles = Array.from({length: 8}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: 30 + Math.random() * 50,
+    speed: 0.3 + Math.random(),
+    color: {r:200 + Math.random()*55, g:50 + Math.random()*100, b:0, a:0.7},
+    phase: Math.random() * Math.PI * 2,
+    fading:false
+  }));
+
+  let animationId;
+  let steps = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    bubbles.forEach(b => {
+      const scale = 0.9 + Math.sin(b.phase) * 0.2;
+      b.phase += 0.02;
+      b.y -= b.speed;
+      if (b.y + b.r < 0) { b.y = canvas.height + b.r; b.x = Math.random() * canvas.width; }
+
+      if(steps > 250) b.fading = true;
+
+      if(b.fading){
+        b.color.r += (0 - b.color.r) * 0.02;
+        b.color.g += (255 - b.color.g) * 0.02;
+        b.color.b += (0 - b.color.b) * 0.02;
+        b.color.a -= 0.005;
+      }
+
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${b.color.r.toFixed(0)},${b.color.g.toFixed(0)},${b.color.b.toFixed(0)},${b.color.a.toFixed(2)})`;
+      ctx.arc(b.x, b.y, b.r * scale, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    steps++;
+    animationId = requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  setTimeout(() => {
+    cancelAnimationFrame(animationId);
+    canvas.remove();
+    document.body.classList.remove('blurred');
+    disableButtons(false);
+    lavaActive = false;
+  }, 10000);
+}
 
 const sparkle=document.getElementById('sparkle');
 const scoreBoard=document.getElementById('scoreBoard');
