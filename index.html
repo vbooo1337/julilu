@@ -21,12 +21,32 @@ body {
 }
 body.blurred { filter: blur(8px); }
 
-#centerBanner { position: fixed; top: 30px; left: 50%; transform: translate(-50%, -50%); font-family: 'Roboto', sans-serif; font-size: 16px; background-color: #000; color: #fff; padding: 10px 20px; border-radius: 8px; z-index: 9999; opacity: 0; pointer-events: none; white-space: nowrap; transition: opacity 0.5s ease; }
+#centerBanner {
+  position: fixed; top: 30px; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px; background-color: #000; color: #fff;
+  padding: 10px 20px; border-radius: 8px; z-index: 9999;
+  opacity: 0; pointer-events: none; white-space: nowrap;
+  transition: opacity 0.5s ease;
+}
 
-.card { background-color: white; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width: 100%; max-width: 400px; height: 100vh; padding: 40px 20px; box-sizing: border-box; text-align: center; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; transition: background-color 0.3s ease; }
+.card {
+  background-color: white; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  width: 100%; max-width: 400px; height: 100vh; padding: 40px 20px;
+  box-sizing: border-box; text-align: center; display: flex; flex-direction: column;
+  justify-content: center; position: relative; z-index: 1;
+}
 
-.image-container { width: 180px; height: 180px; aspect-ratio: 1/1; margin: 0 auto 20px; overflow: hidden; border-radius: 50%; border: 3px solid #ddd; position: relative; flex-shrink: 0; cursor: pointer; user-select: none; }
-.image-container img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; user-select: none; display: block; }
+.image-container {
+  width: 180px; height: 180px; aspect-ratio: 1/1;
+  margin: 0 auto 20px; overflow: hidden; border-radius: 50%;
+  border: 3px solid #ddd; position: relative; flex-shrink: 0;
+  cursor: pointer; user-select: none;
+}
+.image-container img {
+  width: 100%; height: 100%; object-fit: cover;
+  pointer-events: none; user-select: none; display: block;
+}
 
 .name { font-size: 26px; font-weight: bold; color: #333; margin: 10px 0 5px; }
 .profession { font-size: 18px; color: #666; margin: 0 0 15px; }
@@ -37,47 +57,100 @@ body.blurred { filter: blur(8px); }
 .social-icons a img { width: 32px; height: 32px; border-radius: 6px; transition: transform 0.2s; }
 .social-icons a:hover img { transform: scale(1.1); }
 
-.toggle-button { background: #fff; border: 2px solid #000; border-radius: 50%; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.4s ease; z-index: 10; }
+.toggle-button {
+  background: #fff; border: 2px solid #000; border-radius: 50%;
+  width: 32px; height: 32px; display: flex; justify-content: center;
+  align-items: center; cursor: pointer; transition: all 0.4s ease; z-index: 10;
+}
 .toggle-button svg { width: 14px; height: 14px; stroke: #000; transition: transform 0.3s ease; }
 .toggle-button.active svg { transform: rotate(180deg); }
 
 #toggleBtnMain { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); }
 
-.price-panel { position: fixed; bottom: -100%; left: 0; right: 0; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.3); max-width: 400px; margin: 0 auto; padding: 24px 20px 60px; transition: bottom 0.5s ease; border-radius: 20px 20px 0 0; z-index: 5; box-sizing: border-box; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); }
+.price-panel {
+  position: fixed; bottom: -100%; left: 0; right: 0;
+  background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.3); max-width: 400px; margin: 0 auto; padding: 24px 20px 60px;
+  transition: bottom 0.5s ease; border-radius: 20px 20px 0 0; z-index: 5; box-sizing: border-box;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+}
 .price-panel.active { bottom: 0; }
-
 .price-list span { display: block; font-size: 18px; margin-bottom: 10px; color: #111; }
 
-@media (max-width: 480px) { .image-container { width: 150px; height: 150px; } .name { font-size: 22px; } .price-list span { font-size: 16px; } }
+@media (max-width: 480px) {
+  .image-container { width: 150px; height: 150px; }
+  .name { font-size: 22px; }
+  .price-list span { font-size: 16px; }
+}
 
 .share-wrapper { position: absolute; top: 20px; right: 20px; z-index: 10; }
 .share-button { width: 32px; height: 32px; cursor: pointer; }
 .share-button img { width: 100%; height: 100%; border-radius: 6px; transition: transform 0.2s; }
 .share-button:hover img { transform: scale(1.1); }
 
-.share-menu { position: absolute; top: 40px; right: 0; background: white; border: 1px solid #ccc; border-radius: 8px; padding: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.15); display: flex; gap: 10px; justify-content: center; align-items: center; }
+.share-menu { position: absolute; top: 40px; right: 0; background: white; border: 1px solid #ccc;
+  border-radius: 8px; padding: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  display: flex; gap: 10px; justify-content: center; align-items: center;
+}
 .share-menu.hidden { display: none !important; }
 
-.landscape-warning { display: none; position: fixed; z-index: 9999; background: #000; color: #fff; font-family: 'Roboto', sans-serif; font-size: 20px; text-align: center; padding: 40px 20px; width: 100vw; height: 100vh; top: 0; left: 0; box-sizing: border-box; justify-content: center; align-items: center; flex-direction: column; }
-@media screen and (orientation: landscape) and (max-width: 900px) { body > *:not(.landscape-warning) { display: none !important; } .landscape-warning { display: flex; } }
+.landscape-warning { display: none; position: fixed; z-index: 9999; background: #000; color: #fff;
+  font-family: 'Roboto', sans-serif; font-size: 20px; text-align: center; padding: 40px 20px;
+  width: 100vw; height: 100vh; top: 0; left: 0; box-sizing: border-box;
+  justify-content: center; align-items: center; flex-direction: column;
+}
+@media screen and (orientation: landscape) and (max-width: 900px) {
+  body > *:not(.landscape-warning) { display: none !important; }
+  .landscape-warning { display: flex; }
+}
 
 .disabled { pointer-events: none !important; user-select: none !important; opacity: 0.6; }
 
-#sparkle { position:absolute; width:30px; height:30px; background-color:black; border-radius:50%; cursor:pointer; user-select:none; z-index:20; transform-origin:center center; transition:none; opacity:1; }
+#sparkle { position:absolute; width:30px; height:30px; background-color:black; border-radius:50%;
+  cursor:pointer; user-select:none; z-index:20; transform-origin:center center; transition:none; opacity:1; }
 #sparkle.shrink { animation: shrinkSparkle 1.5s forwards linear; }
 @keyframes shrinkSparkle { from{transform:scale(1);opacity:1;} to{transform:scale(0.033);opacity:0;} }
 
-#scoreBoard { position: fixed; top:10px; left:20px; font-family:'Roboto',sans-serif; font-size:18px; color:black; background:transparent; padding:6px 12px; border-radius:10px; z-index:9999; user-select:none; }
+#scoreBoard { position: fixed; top:10px; left:20px; font-family:'Roboto',sans-serif;
+  font-size:18px; color:black; background:transparent; padding:6px 12px; border-radius:10px; z-index:9999;
+  user-select:none;
+}
 
-#messageBanner { position: fixed; top:50%; left:50%; transform: translate(-50%, -50%); font-family:'Roboto',sans-serif; font-size:16px; background-color:rgba(0,0,0,0.85); color:#fff; padding:10px 20px; border-radius:8px; z-index:10000; opacity:0; pointer-events:none; white-space:nowrap; transition:opacity 0.5s ease; user-select:none; }
+#messageBanner { position: fixed; top:50%; left:50%; transform: translate(-50%, -50%);
+  font-family:'Roboto',sans-serif; font-size:16px; background-color:rgba(0,0,0,0.85);
+  color:#fff; padding:10px 20px; border-radius:8px; z-index:10000; opacity:0; pointer-events:none;
+  white-space:nowrap; transition:opacity 0.5s ease; user-select:none;
+}
+
+/* Портфолио */
+#portfolioBtn {
+  position: fixed; bottom: 30px; right: 20px; width: 48px; height: 48px;
+  background-color: #fff; border-radius: 12px; display: flex; justify-content:center; align-items:center;
+  border: 2px solid #000; cursor:pointer; z-index:10;
+}
+#portfolioBtn img { width: 100%; height: 100%; filter: grayscale(100%); }
+
+#portfolioOverlay {
+  position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9);
+  display:none; justify-content:center; align-items:center; z-index:9999; flex-direction:column;
+}
+#portfolioImage { max-width:90%; max-height:80%; border-radius:12px; }
+.portfolioNav {
+  position: absolute; top:50%; transform: translateY(-50%);
+  background: #fff; border:2px solid #000; border-radius:50%; width:40px; height:40px;
+  display:flex; justify-content:center; align-items:center; cursor:pointer;
+}
+#prevBtn { left:20px; }
+#nextBtn { right:20px; }
+#closePortfolio { top:20px; right:20px; }
 </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 <div id="centerBanner">Грузит лучше с VPN</div>
 
 <div class="card" id="mainCard">
   <div class="image-container" id="imageContainer">
-    <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" draggable="false" onmousedown="return false;" />
+    <img src="https://i.postimg.cc/g05xfHHK/IMG-1154.jpg" alt="Юлия Зуева" draggable="false" />
   </div>
 
   <div id="sparkle" title="Поймай кружок!"></div>
@@ -88,8 +161,8 @@ body.blurred { filter: blur(8px); }
       <img src="https://i.postimg.cc/XvMJLYj2/IMG-1155.webp" alt="Поделиться" />
     </div>
     <div class="share-menu hidden" id="shareMenu">
-      <a href="#" id="tgShare" title="Telegram"><img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" width="32" height="32"/></a>
-      <a href="#" id="waShare" title="WhatsApp"><img src="https://i.postimg.cc/L6H0qtjD/IMG-1156.webp" width="32" height="32"/></a>
+      <a href="#" id="tgShare"><img src="https://i.postimg.cc/vmGdhyv5/IMG-1136.jpg" width="32" height="32"/></a>
+      <a href="#" id="waShare"><img src="https://i.postimg.cc/L6H0qtjD/IMG-1156.webp" width="32" height="32"/></a>
     </div>
   </div>
 
@@ -124,6 +197,17 @@ body.blurred { filter: blur(8px); }
   </svg>
 </div>
 
+<!-- Портфолио -->
+<div id="portfolioBtn" title="Портфолио">
+  <img src="https://i.postimg.cc/CLZcTMFD/IMG-2332.png" alt="portfolio">
+</div>
+<div id="portfolioOverlay">
+  <img id="portfolioImage" src="" alt="portfolio">
+  <div class="portfolioNav" id="prevBtn">&#8592;</div>
+  <div class="portfolioNav" id="nextBtn">&#8594;</div>
+  <div class="portfolioNav toggle-button" id="closePortfolio">&#10005;</div>
+</div>
+
 <div id="messageBanner"></div>
 <div class="landscape-warning">Пожалуйста, переверните телефон в портретный режим 📱</div>
 
@@ -136,11 +220,23 @@ const imageContainer = document.getElementById('imageContainer');
 const mainCard = document.getElementById('mainCard');
 const buttonsAndLinks = document.querySelectorAll('a, button, .toggle-button, .share-button');
 
-function togglePrice() { const isActive = pricePanel.classList.toggle('active'); toggleBtnMain.style.display = isActive ? 'none' : 'flex'; }
+function togglePrice() { 
+  const isActive = pricePanel.classList.toggle('active'); 
+  toggleBtnMain.style.display = isActive ? 'none' : 'flex'; 
+}
 toggleBtnMain.addEventListener('click', togglePrice);
-document.addEventListener('click', (e) => { if(pricePanel.classList.contains('active') && !pricePanel.contains(e.target) && !toggleBtnMain.contains(e.target)){ pricePanel.classList.remove('active'); toggleBtnMain.style.display='flex'; } });
+document.addEventListener('click', (e) => { 
+  if(pricePanel.classList.contains('active') && !pricePanel.contains(e.target) && !toggleBtnMain.contains(e.target)){ 
+    pricePanel.classList.remove('active'); toggleBtnMain.style.display='flex'; 
+  } 
+});
 
-function toggleShareMenu() { if(shareMenu.classList.contains('hidden')){ shareMenu.classList.remove('hidden'); document.addEventListener('click', closeMenuOutside, {once:true}); } else shareMenu.classList.add('hidden'); }
+function toggleShareMenu() { 
+  if(shareMenu.classList.contains('hidden')){
+    shareMenu.classList.remove('hidden'); 
+    document.addEventListener('click', closeMenuOutside, {once:true}); 
+  } else shareMenu.classList.add('hidden'); 
+}
 function closeMenuOutside(e){ if(!e.target.closest('.share-wrapper')) shareMenu.classList.add('hidden'); }
 
 document.getElementById('shareBtn').addEventListener('click', toggleShareMenu);
@@ -278,6 +374,36 @@ sparkle.addEventListener('click',()=>{
   }
 });
 moveSparkle();
+
+/* Портфолио */
+const portfolioBtn = document.getElementById('portfolioBtn');
+const portfolioOverlay = document.getElementById('portfolioOverlay');
+const portfolioImage = document.getElementById('portfolioImage');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const closePortfolio = document.getElementById('closePortfolio');
+
+const portfolioImages = [
+  'https://i.postimg.cc/1tNk30SY/IMG-2328.jpg',
+  'https://i.postimg.cc/NFqW9yfq/IMG-2329.jpg',
+  'https://i.postimg.cc/7h8pGCYx/IMG-2330.jpg'
+];
+let currentIndex = 0;
+
+function showPortfolio(index){
+  portfolioImage.src = portfolioImages[index];
+  portfolioOverlay.style.display = 'flex';
+}
+portfolioBtn.addEventListener('click', ()=>{ showPortfolio(currentIndex); });
+prevBtn.addEventListener('click', ()=>{
+  currentIndex = (currentIndex-1+portfolioImages.length)%portfolioImages.length;
+  showPortfolio(currentIndex);
+});
+nextBtn.addEventListener('click', ()=>{
+  currentIndex = (currentIndex+1)%portfolioImages.length;
+  showPortfolio(currentIndex);
+});
+closePortfolio.addEventListener('click', ()=>{ portfolioOverlay.style.display='none'; });
 </script>
 </body>
 </html>
