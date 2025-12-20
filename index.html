@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Юлия Зуева — Визажист-стилист</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
-
 <style>
 body {
   font-family: 'Roboto', sans-serif;
@@ -18,8 +17,6 @@ body {
   height: 100vh;
   overflow-x: hidden;
 }
-
-/* Баннер */
 #centerBanner {
   position: fixed;
   top: 30px;
@@ -35,8 +32,6 @@ body {
   pointer-events: none;
   transition: opacity 0.5s ease;
 }
-
-/* Карточка */
 .card {
   background-color: #fff;
   border-radius: 20px;
@@ -51,8 +46,6 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-
-/* Фото */
 .image-container {
   width: 180px;
   height: 180px;
@@ -67,8 +60,6 @@ body {
   object-fit: cover;
   pointer-events: none;
 }
-
-/* Текст */
 .name {
   font-size: 26px;
   font-weight: 400;
@@ -87,8 +78,6 @@ body {
   color: #333;
   text-decoration: none;
 }
-
-/* Соцсети */
 .social-icons {
   display: flex;
   justify-content: center;
@@ -98,10 +87,12 @@ body {
 .social-icons img {
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  padding: 6px;
+  box-sizing: content-box;
+  background: #fff;
 }
-
-/* Кнопка прайса */
 .toggle-button {
   position: fixed;
   bottom: 30px;
@@ -123,8 +114,6 @@ body {
   height: 16px;
   stroke-width: 1; /* ← ключевая правка */
 }
-
-/* Прайс */
 .price-panel {
   position: fixed;
   bottom: -100%;
@@ -149,8 +138,6 @@ body {
   margin-bottom: 10px;
   color: #111;
 }
-
-/* Альбомный режим */
 .landscape-warning {
   display: none;
   position: fixed;
@@ -200,8 +187,6 @@ body {
     <a href="https://vk.com/ju_lu26" target="_blank"><img src="https://i.postimg.cc/3rqYTPKH/IMG-1136.jpg"></a>
   </div>
 </div>
-
-<!-- Прайс -->
 <div class="price-panel" id="pricePanel">
   <div class="price-list">
     <span>💋 Нюдовый макияж — 1500₽</span>
