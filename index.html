@@ -20,6 +20,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Верхний баннер */
 #centerBanner {
   position: fixed;
   top: 30px;
@@ -36,17 +37,19 @@ body {
   transition: opacity 0.5s ease;
 }
 
+/* Карточка */
 .card {
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   width: 100%;
   max-width: 400px;
-  padding: 15px 20px; /* ← расстояние сверху и снизу */
+  padding: 15px 20px;
   box-sizing: border-box;
   text-align: center;
 }
 
+/* Фото */
 .image-container {
   width: 180px;
   height: 180px;
@@ -62,6 +65,7 @@ body {
   pointer-events: none;
 }
 
+/* Текст */
 .name {
   font-size: 26px;
   font-weight: 400;
@@ -73,11 +77,11 @@ body {
   font-size: 18px;
   font-weight: 300;
   color: #666;
-  margin-bottom: 15px; /* ← эталонное расстояние */
+  margin-bottom: 15px;
 }
 
 .phone {
-  margin-top: 15px; /* ← то же расстояние */
+  margin-top: 15px;
 }
 
 .phone a {
@@ -87,6 +91,7 @@ body {
   text-decoration: none;
 }
 
+/* Соцсети */
 .social-icons {
   display: flex;
   justify-content: center;
@@ -103,6 +108,7 @@ body {
   background: #fff;
 }
 
+/* Кнопка цен */
 .toggle-button {
   position: fixed;
   bottom: 30px;
@@ -126,6 +132,7 @@ body {
   stroke-width: 1;
 }
 
+/* Прайс */
 .price-panel {
   position: fixed;
   bottom: -100%;
@@ -153,8 +160,9 @@ body {
   color: #111;
 }
 
+/* Сообщение об ориентации */
 .landscape-warning {
-  display: none;
+  display: flex;
   position: fixed;
   z-index: 9999;
   background: #000;
@@ -170,12 +178,10 @@ body {
   align-items: center;
 }
 
+/* Показываем только в landscape */
 @media screen and (orientation: landscape) and (max-width: 900px) {
   body > *:not(.landscape-warning) {
     display: none !important;
-  }
-  .landscape-warning {
-    display: flex;
   }
 }
 </style>
