@@ -44,7 +44,7 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   width: 100%;
   max-width: 400px;
-  padding: 15px 20px;
+  padding: 15px 20px; /* ← расстояние сверху и снизу */
   box-sizing: border-box;
   text-align: center;
 }
@@ -77,11 +77,11 @@ body {
   font-size: 18px;
   font-weight: 300;
   color: #666;
-  margin-bottom: 15px;
+  margin-bottom: 15px; /* ← эталонное расстояние */
 }
 
 .phone {
-  margin-top: 15px;
+  margin-top: 15px; /* ← то же расстояние */
 }
 
 .phone a {
@@ -96,7 +96,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 15px;
+  margin-top: 15px; /* ← симметрия снизу */
 }
 
 .social-icons img {
@@ -160,9 +160,9 @@ body {
   color: #111;
 }
 
-/* Сообщение об ориентации */
+/* Поворот экрана */
 .landscape-warning {
-  display: flex;
+  display: none;
   position: fixed;
   z-index: 9999;
   background: #000;
@@ -178,10 +178,12 @@ body {
   align-items: center;
 }
 
-/* Показываем только в landscape */
 @media screen and (orientation: landscape) and (max-width: 900px) {
   body > *:not(.landscape-warning) {
     display: none !important;
+  }
+  .landscape-warning {
+    display: flex;
   }
 }
 </style>
