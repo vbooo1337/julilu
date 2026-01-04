@@ -38,13 +38,14 @@ body {
 
 /* Карточка */
 .card {
+  position: relative;
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   width: 100%;
   max-width: 400px;
-  aspect-ratio: 2 / 3; /* 1 : 1.5 */
-  padding: 25px 20px;
+  aspect-ratio: 2 / 3;
+  padding: 25px 20px 50px; /* запас под нижнюю надпись */
   box-sizing: border-box;
   text-align: center;
 
@@ -111,15 +112,19 @@ body {
   background: #fff;
 }
 
-/* Подпись внизу */
+/* Нижняя надпись */
 .note {
-  margin-top: auto;
-  font-size: 12px;
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  right: 20px;
+
+  font-size: clamp(9px, 2.5vw, 11px); /* автоуменьшение */
   font-weight: 300;
   color: #777;
-  line-height: 1.4;
-  padding-top: 15px;
   opacity: 0.7;
+  white-space: nowrap;
+  text-align: center;
 }
 
 /* Кнопка цен */
@@ -173,33 +178,6 @@ body {
   margin-bottom: 10px;
   color: #111;
 }
-
-/* Поворот экрана */
-.landscape-warning {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  background: #000;
-  color: #fff;
-  font-size: 20px;
-  text-align: center;
-  padding: 40px 20px;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  justify-content: center;
-  align-items: center;
-}
-
-@media screen and (orientation: landscape) and (max-width: 900px) {
-  body > *:not(.landscape-warning) {
-    display: none !important;
-  }
-  .landscape-warning {
-    display: flex;
-  }
-}
 </style>
 </head>
 
@@ -237,53 +215,6 @@ body {
   </p>
 
 </div>
-
-<div class="price-panel" id="pricePanel">
-  <div class="price-list">
-    <span>💋 Нюдовый макияж — 1500₽</span>
-    <span>💄 Вечерний макияж — 2000₽</span>
-    <span>💇‍♀️ Прическа — 2000₽</span>
-    <span>👰 Макияж / прическа для невесты — 2000₽</span>
-    <span>👑 Полный образ (невеста) — 4000₽</span>
-    <span>🎨 Пробный образ — 1500₽</span>
-    <span>🚗 Выезд по городу — 1000₽</span>
-    <span>⏰ Выезд до 8:00 — +500₽ / час</span>
-  </div>
-</div>
-
-<div class="toggle-button" id="togglePrice">
-  <svg viewBox="0 0 24 24" fill="none" stroke="black">
-    <polyline points="18 15 12 9 6 15"/>
-  </svg>
-</div>
-
-<div class="landscape-warning">
-  Пожалуйста, переверните телефон в портретный режим 📱
-</div>
-
-<script>
-const banner = document.getElementById('centerBanner');
-banner.style.opacity = 1;
-setTimeout(() => banner.style.opacity = 0, 2000);
-
-const pricePanel = document.getElementById('pricePanel');
-const toggleBtn = document.getElementById('togglePrice');
-
-toggleBtn.addEventListener('click', e => {
-  e.stopPropagation();
-  pricePanel.classList.add('active');
-  toggleBtn.style.display = 'none';
-});
-
-document.addEventListener('click', () => {
-  if (pricePanel.classList.contains('active')) {
-    pricePanel.classList.remove('active');
-    toggleBtn.style.display = 'flex';
-  }
-});
-
-pricePanel.addEventListener('click', e => e.stopPropagation());
-</script>
 
 </body>
 </html>
